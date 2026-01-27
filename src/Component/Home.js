@@ -314,6 +314,14 @@ const handleSubmit = async (e) => {
                 {" "}
                 <FontAwesomeIcon icon={faWhatsapp} className="twitter" />{" "}
               </a>
+                  <a
+                href="https://aratt.ai/user/@vikusrma"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {" "}
+                <img width="48" height="48" src="https://img.icons8.com/color/48/arattai.png" alt="arattai"/>
+              </a>
             </div>
           </div>
           <img className="Profile" src={ProfileImage} alt="Profile" />
@@ -592,3 +600,4 @@ const handleSubmit = async (e) => {
 }
 
 export default Home;
+

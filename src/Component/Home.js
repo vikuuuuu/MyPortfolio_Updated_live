@@ -281,6 +281,18 @@ const handleSubmit = async (e) => {
             <div className="ProfileName2">
               I'm <span id="Typing" className="Typing"></span>
             </div>
+            <p className="HeroTagline">
+              Crafting bold, high-converting interfaces with delightful motion,
+              clean code, and modern UX patterns.
+            </p>
+            <div className="HeroActions">
+              <a className="PrimaryAction" href="#Contact">
+                Let&apos;s Collaborate
+              </a>
+              <a className="SecondaryAction" href="#Project">
+                View Projects
+              </a>
+            </div>
             <div className="ProfileIcon">
               <a
                 href="https://www.linkedin.com/in/vikash-sharma-48b27a263/"

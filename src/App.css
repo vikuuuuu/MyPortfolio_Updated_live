@@ -2,6 +2,19 @@
   text-align: center;
 }
 
+.AppContent {
+  margin-left: 90px;
+  width: calc(100% - 90px);
+}
+
+@media (max-width: 768px) {
+  .AppContent {
+    margin-left: 0;
+    width: 100%;
+    padding-bottom: 70px;
+  }
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

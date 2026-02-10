@@ -332,7 +332,11 @@ const handleSubmit = async (e) => {
                 rel="noreferrer"
               >
                 {" "}
-                <img width="48" height="48" src="https://img.icons8.com/color/48/arattai.png" alt="arattai"/>
+                  <img
+                    className="socialIconImage"
+                    src="https://img.icons8.com/color/48/arattai.png"
+                    alt="arattai"
+                  />
               </a>
             </div>
           </div>

@@ -337,6 +337,7 @@ const handleSubmit = async (e) => {
                     src="https://img.icons8.com/color/48/arattai.png"
                     alt="arattai"
                   />
+                      </a>
 
           </div>
         </section>

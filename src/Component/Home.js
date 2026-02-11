@@ -346,8 +346,6 @@ const handleSubmit = async (e) => {
             Experience
           </h1>
           <div className="ExperienceContainer">
-
-            </article>
           </div>
         </section>
 

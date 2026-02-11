@@ -420,6 +420,66 @@ body {
   transition: width 1s ease-in-out;
 }
 
+/* Experience Section */
+.Experience {
+  padding: 3rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.ExperienceTitle {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.ExperienceTitle::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--primary);
+  border-radius: 2px;
+}
+
+.ExperienceContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.2rem;
+}
+
+.ExperienceCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  text-align: left;
+}
+
+.ExperienceRole {
+  color: var(--primary);
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  margin-bottom: 0.35rem;
+}
+
+.ExperienceCompany {
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.ExperienceDuration {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
 /* Education Section - Responsive */
 .Education {
   padding: 3rem 1rem;

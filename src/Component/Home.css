@@ -447,25 +447,11 @@ body {
 }
 
 .ExperienceContainer {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.2rem;
-}
 
-.ExperienceCard {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.2rem;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-  text-align: left;
 }
 
 .ExperienceRole {
   color: var(--primary);
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
   margin-bottom: 0.35rem;
 }
 
@@ -479,6 +465,7 @@ body {
   color: var(--text-muted);
   font-size: 0.95rem;
 }
+
 
 /* Education Section - Responsive */
 .Education {

@@ -440,6 +440,40 @@ const handleSubmit = async (e) => {
           </div>
         </section>
 
+        <section className="Experience" id="Experience" data-aos="fade-up">
+          <h1 className="ExperienceTitle" data-aos="fade-down">
+            Experience
+          </h1>
+          <div className="ExperienceContainer">
+            <article className="ExperienceItem" data-aos="fade-right">
+              <span className="ExperienceDot" aria-hidden="true"></span>
+              <div className="ExperienceCard">
+                <h3 className="ExperienceRole">Digital Marketing</h3>
+                <p className="ExperienceCompany">The Raptor Marketing</p>
+                <p className="ExperienceDuration">Jan 2023 – June 2023</p>
+              </div>
+            </article>
+
+            <article className="ExperienceItem" data-aos="fade-right">
+              <span className="ExperienceDot" aria-hidden="true"></span>
+              <div className="ExperienceCard">
+                <h3 className="ExperienceRole">Web Developer</h3>
+                <p className="ExperienceCompany">3Handshake Innovation Pvt. Ltd.</p>
+                <p className="ExperienceDuration">Jan 2024 – Aug 2024</p>
+              </div>
+            </article>
+
+            <article className="ExperienceItem" data-aos="fade-right">
+              <span className="ExperienceDot" aria-hidden="true"></span>
+              <div className="ExperienceCard">
+                <h3 className="ExperienceRole">Web Developer</h3>
+                <p className="ExperienceCompany">NullCyberX</p>
+                <p className="ExperienceDuration">Jan 2025 – Aug 2025</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
         <section className="Education" id="Education" data-aos="fade-up">
           <h1 className="EducationTitle" data-aos="fade-down">
             Education

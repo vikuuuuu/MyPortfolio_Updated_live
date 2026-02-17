@@ -2,6 +2,23 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./ViewCounter.css";
 
 const LOCAL_STORAGE_KEY = "portfolio_viewcounter_fallback";
+const FIREBASE_PATH = "analytics/viewcounter";
+const FIREBASE_DB_TOKEN = process.env.REACT_APP_FIREBASE_DB_TOKEN;
+
+// Firebase configuration provided by user
+const firebaseConfig = {
+  apiKey: "AIzaSyDU2odOQ8iS_r4DtTNsKy8EZ96u3EFg2gc",
+  authDomain: "mydashboard-a5972.firebaseapp.com",
+  projectId: "mydashboard-a5972",
+  storageBucket: "mydashboard-a5972.firebasestorage.app",
+  messagingSenderId: "433641245474",
+  appId: "1:433641245474:web:b6006fc4d2a7c359be737b",
+  measurementId: "G-780EDFLM17",
+};
+
+const FIREBASE_DB_URL =
+  process.env.REACT_APP_FIREBASE_DB_URL ||
+  `https://${firebaseConfig.projectId}-default-rtdb.firebaseio.com`;
 const FIREBASE_DB_URL = process.env.REACT_APP_FIREBASE_DB_URL;
 const FIREBASE_DB_TOKEN = process.env.REACT_APP_FIREBASE_DB_TOKEN;
 const FIREBASE_PATH = "analytics/viewcounter";
@@ -12,6 +29,16 @@ const emptyMetrics = {
   bounceRate: 0,
 };
 
+const dashboardRows = [
+  "Pages",
+  "Routes",
+  "Hostnames",
+  "Referrers",
+  "UTM Parameters",
+  "Countries",
+  "Devices",
+  "Browsers",
+  "Operating Systems",
 const defaultTable = [
   { label: "Pages", value: "No data found for selected period." },
   { label: "Routes", value: "No data found for selected period." },
@@ -50,6 +77,12 @@ async function saveToFirebase(firebaseUrl, payload) {
 
 function loadFromLocalStorage() {
   const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+  if (!raw) return { ...emptyMetrics, updatedAt: null };
+
+  try {
+    return { ...emptyMetrics, ...JSON.parse(raw) };
+  } catch {
+    return { ...emptyMetrics, updatedAt: null };
   if (!raw) return { ...emptyMetrics, updatedAt: null, store: "local" };
 
   try {
@@ -100,6 +133,7 @@ function ViewCounter() {
         bounceRate: Number(localCurrent.bounceRate || 0),
         updatedAt: now,
       };
+
       saveToLocalStorage(localNext);
       setMetrics(localNext);
       setStoreMode("local");
@@ -121,6 +155,11 @@ function ViewCounter() {
         <p>Generating</p>
         <p>running: npm install @vercel/analytics...</p>
         <p>~5 min</p>
+
+        <pre>
+          <code>npm i @vercel/analytics</code>
+        </pre>
+
 const STORAGE_KEY = "portfolio_total_visits";
 
 function ViewCounter() {
@@ -157,6 +196,7 @@ function ViewCounter() {
           import <code>{"{ Analytics }"}</code> from
           <code> @vercel/analytics/react</code>
         </p>
+
         <p className="dataSource">
           Data source: <strong>{storeMode === "firebase" ? "Firebase" : "Local fallback"}</strong>
         </p>
@@ -167,10 +207,12 @@ function ViewCounter() {
           <p>Visitors</p>
           <h2>{loading ? "..." : metrics.visitors}</h2>
         </article>
+
         <article className="statCard">
           <p>Page Views</p>
           <h2>{loading ? "..." : metrics.pageViews}</h2>
         </article>
+
         <article className="statCard">
           <p>Bounce Rate</p>
           <h2>{loading ? "..." : metrics.bounceRate}%</h2>
@@ -193,6 +235,9 @@ function ViewCounter() {
       </section>
 
       <section className="analyticsListCard">
+        {dashboardRows.slice(5).map((item) => (
+          <div key={item} className="listRow">
+            <span>{item}</span>
         {defaultTable.slice(5).map((item) => (
           <div key={item.label} className="listRow">
             <span>{item.label}</span>
@@ -202,6 +247,8 @@ function ViewCounter() {
       </section>
 
       <section className="footerMeta">
+        <p>Firebase Project: {firebaseConfig.projectId}</p>
+        <p>Last Updated: {lastUpdated}</p>
         <p>Last Updated: {lastUpdated}</p>
           Then import and use <code>{"<Analytics />"}</code> in your main app
           file.

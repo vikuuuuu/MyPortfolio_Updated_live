@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Menu from "./Component/Menu";
 import Home from "./Component/Home";
 import ViewCounter from "./Component/ViewCounter";
@@ -25,6 +26,7 @@ function App() {
   return (
     <Router>
       <AppLayout />
+      <Analytics />
     </Router>
   );
 }

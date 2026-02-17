@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./ViewCounter.css";
+import { firebaseConfig, firebaseDatabaseUrl, firebaseToken } from "../firebase";
+
+const LOCAL_STORAGE_KEY = "portfolio_viewcounter_fallback";
+const FIREBASE_PATH = "analytics/viewcounter";
 
 const LOCAL_STORAGE_KEY = "portfolio_viewcounter_fallback";
 const FIREBASE_PATH = "analytics/viewcounter";
@@ -39,6 +43,13 @@ const dashboardRows = [
   "Devices",
   "Browsers",
   "Operating Systems",
+];
+
+function getFirebaseUrl() {
+  if (!firebaseDatabaseUrl) return null;
+  const cleanedBase = firebaseDatabaseUrl.replace(/\/$/, "");
+  const tokenQuery = firebaseToken
+    ? `?auth=${encodeURIComponent(firebaseToken)}`
 const defaultTable = [
   { label: "Pages", value: "No data found for selected period." },
   { label: "Routes", value: "No data found for selected period." },

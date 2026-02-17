@@ -19,6 +19,9 @@ const firebaseConfig = {
 const FIREBASE_DB_URL =
   process.env.REACT_APP_FIREBASE_DB_URL ||
   `https://${firebaseConfig.projectId}-default-rtdb.firebaseio.com`;
+const FIREBASE_DB_URL = process.env.REACT_APP_FIREBASE_DB_URL;
+const FIREBASE_DB_TOKEN = process.env.REACT_APP_FIREBASE_DB_TOKEN;
+const FIREBASE_PATH = "analytics/viewcounter";
 
 const emptyMetrics = {
   visitors: 0,
@@ -36,6 +39,16 @@ const dashboardRows = [
   "Devices",
   "Browsers",
   "Operating Systems",
+const defaultTable = [
+  { label: "Pages", value: "No data found for selected period." },
+  { label: "Routes", value: "No data found for selected period." },
+  { label: "Hostnames", value: "No data found for selected period." },
+  { label: "Referrers", value: "No data found for selected period." },
+  { label: "UTM Parameters", value: "No data found for selected period." },
+  { label: "Countries", value: "No data found for selected period." },
+  { label: "Devices", value: "No data found for selected period." },
+  { label: "Browsers", value: "No data found for selected period." },
+  { label: "Operating Systems", value: "No data found for selected period." },
 ];
 
 function getFirebaseUrl() {
@@ -70,6 +83,12 @@ function loadFromLocalStorage() {
     return { ...emptyMetrics, ...JSON.parse(raw) };
   } catch {
     return { ...emptyMetrics, updatedAt: null };
+  if (!raw) return { ...emptyMetrics, updatedAt: null, store: "local" };
+
+  try {
+    return { ...emptyMetrics, ...JSON.parse(raw), store: "local" };
+  } catch {
+    return { ...emptyMetrics, updatedAt: null, store: "local" };
   }
 }
 
@@ -141,6 +160,38 @@ function ViewCounter() {
           <code>npm i @vercel/analytics</code>
         </pre>
 
+const STORAGE_KEY = "portfolio_total_visits";
+
+function ViewCounter() {
+  const [totalVisits, setTotalVisits] = useState(0);
+
+  useEffect(() => {
+    const storedVisits = Number(localStorage.getItem(STORAGE_KEY) || 0);
+    const nextVisits = storedVisits + 1;
+    localStorage.setItem(STORAGE_KEY, String(nextVisits));
+    setTotalVisits(nextVisits);
+  }, []);
+
+  const lastUpdated = useMemo(() => new Date().toLocaleString(), []);
+
+  return (
+    <main className="viewCounterPage">
+      <section className="viewCounterCard">
+        <p className="viewCounterLabel">Total Visits</p>
+        <h1 className="viewCounterValue">{totalVisits.toLocaleString()}</h1>
+        <p className="viewCounterHint">
+          This counter tracks visits for this browser using local storage.
+        </p>
+      </section>
+
+      <section className="viewCounterCard">
+        <h2>Vercel Web Analytics Setup</h2>
+        <p>
+          Install <code>@vercel/analytics</code> in your existing project:
+        </p>
+        <pre>
+          <code>npm i @vercel/analytics</code>
+        </pre>
         <p>
           import <code>{"{ Analytics }"}</code> from
           <code> @vercel/analytics/react</code>
@@ -187,6 +238,9 @@ function ViewCounter() {
         {dashboardRows.slice(5).map((item) => (
           <div key={item} className="listRow">
             <span>{item}</span>
+        {defaultTable.slice(5).map((item) => (
+          <div key={item.label} className="listRow">
+            <span>{item.label}</span>
             <span>Visitors</span>
           </div>
         ))}
@@ -195,6 +249,14 @@ function ViewCounter() {
       <section className="footerMeta">
         <p>Firebase Project: {firebaseConfig.projectId}</p>
         <p>Last Updated: {lastUpdated}</p>
+        <p>Last Updated: {lastUpdated}</p>
+          Then import and use <code>{"<Analytics />"}</code> in your main app
+          file.
+        </p>
+        <pre>
+          <code>{'import { Analytics } from "@vercel/analytics/react"'}</code>
+        </pre>
+        <p className="viewCounterMeta">Last updated: {lastUpdated}</p>
       </section>
     </main>
   );

@@ -272,6 +272,16 @@ const handleSubmit = async (e) => {
     });
   };
 
+  const technicalSkills = [
+    { name: "HTML", width: "90%", level: "Advanced" },
+    { name: "CSS", width: "88%", level: "Advanced" },
+    { name: "JavaScript", width: "75%", level: "Strong" },
+    { name: "React.js", width: "82%", level: "Strong" },
+    { name: "Next.js", width: "65%", level: "Growing" },
+    { name: "Tailwind CSS", width: "72%", level: "Strong" },
+    { name: "Cloud Computing", width: "68%", level: "Growing" },
+  ];
+
   return (
     <>
       <main className="main">
@@ -370,73 +380,25 @@ const handleSubmit = async (e) => {
             Technical Skills
           </h1>
           <div className="SkillsContainer">
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>HTML</span>
-                <span>80%</span>
+            {technicalSkills.map((skill, index) => (
+              <div
+                className="SkillItem"
+                data-aos="fade-down"
+                data-aos-delay={index * 100}
+                key={skill.name}
+              >
+                <div className="SkillLabel">
+                  <span>{skill.name}</span>
+                  <span className="SkillLevelTag">{skill.level}</span>
+                </div>
+                <div className="SkillBar">
+                  <div
+                    className="SkillProgress"
+                    style={{ width: skill.width, animationDelay: `${index * 0.2}s` }}
+                  ></div>
+                </div>
               </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "80%" }}></div>
-              </div>
-            </div>
-
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>CSS</span>
-                <span>80%</span>
-              </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "80%" }}></div>
-              </div>
-            </div>
-
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>JavaScript</span>
-                <span>40%</span>
-              </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "40%" }}></div>
-              </div>
-            </div>
-
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>React.js</span>
-                <span>70%</span>
-              </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "70%" }}></div>
-              </div>
-            </div>
-
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>Next Js</span>
-                <span>30%</span>
-              </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "30%" }}></div>
-              </div>
-            </div>
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>Tailwind CSS</span>
-                <span>25%</span>
-              </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "25%" }}></div>
-              </div>
-            </div>
-            <div className="SkillItem" data-aos="fade-down">
-              <div className="SkillLabel">
-                <span>Cloud Computing</span>
-                <span>45%</span>
-              </div>
-              <div className="SkillBar">
-                <div className="SkillProgress" style={{ width: "45%" }}></div>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 

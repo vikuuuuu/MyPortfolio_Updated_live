@@ -17,11 +17,20 @@ import {
   FaNetworkWired,
   FaProjectDiagram,
   FaPython,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
 } from "react-icons/fa";
+import { 
+  SiNextdotjs, 
+  SiTailwindcss,
+} from "react-icons/si";
 
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
+import { BsSun, BsMoon } from "react-icons/bs";
 
 import APWebsite from "./img/ap website.png";
 import APDashboard from "./img/AP Dashboard.jpeg";
@@ -31,7 +40,6 @@ import Calculator from "./img/Calculator image.png";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 
 import emailjs from "@emailjs/browser";
 
@@ -71,78 +79,68 @@ const Carousel = () => {
     ],
   };
 
-  useEffect(() => {
-  AOS.init({
-    duration: 2000, // animation duration in ms
-    once: true,     // whether animation should happen only once - while scrolling down
-  });
-}, []);
-
-
   return (
-    <div className="carousel-container" data-aos="fade-down">
+    <div className="carousel-container" data-aos="fade-up">
       <Slider {...settings}>
         <div className="project-slide">
-          <img src={OnlineExam} alt="ProjectImage" className="project-image" />
+          <div className="project-image-wrapper">
+            <img src={OnlineExam} alt="ProjectImage" className="project-image" />
+            <div className="project-overlay">
+              <a href="https://quizmasterr-eta.vercel.app/" target="_blank" rel="noreferrer" className="project-link">View Project</a>
+            </div>
+          </div>
           <h1 className="project-heading-name">Online Exam Dashboard</h1>
-          <p className="visit-website">
-            Visit :-{" "}
-            <a href="https://quizmasterr-eta.vercel.app/">Quiz Master</a>
-          </p>
           <p className="project-details">
-            I am Developing an online Examination Dashboard using React js,
-            aiming for an intuitive user experience and real-time updates. The
-            Project is still in progress and not yet completed.
+            Developing an online Examination Dashboard using React.js with intuitive user experience and real-time updates.
           </p>
         </div>
         <div className="project-slide">
-          <img src={APWebsite} alt="ProjectImage" className="project-image" />
+          <div className="project-image-wrapper">
+            <img src={APWebsite} alt="ProjectImage" className="project-image" />
+            <div className="project-overlay">
+              <a href="https://apnabackup.com" target="_blank" rel="noreferrer" className="project-link">View Project</a>
+            </div>
+          </div>
           <h1 className="project-heading-name">ApnaBackup Website</h1>
-          <p className="visit-website">
-            Visit :- <a href="https://apnabackup.com">ApnaBackup Website</a>
-          </p>
           <p className="project-details">
-            I am Creating a project in React JS for a Software Website named
-            ApnaBackup. This Project aims to provide a comprehensive solution
-            for data backup and recovery.
+            Creating a comprehensive React.js solution for data backup and recovery software website.
           </p>
         </div>
         <div className="project-slide">
-          <img src={APDashboard} alt="ProjectImage" className="project-image" />
+          <div className="project-image-wrapper">
+            <img src={APDashboard} alt="ProjectImage" className="project-image" />
+            <div className="project-overlay">
+              <span className="project-link in-progress">In Progress</span>
+            </div>
+          </div>
           <h1 className="project-heading-name">ApnaBackup Dashboard</h1>
-          <p className="visit-website">Visit :- Not Available</p>
           <p className="project-details">
-            ApnaBackup Website is a business-oriented backup Software that
-            offers real-time data protection and secure cloud storage. The
-            Project is still in progress and not yet completed.
+            Business-oriented backup software offering real-time data protection and secure cloud storage.
           </p>
         </div>
 
         <div className="project-slide">
-          <img src={MyPort} alt="ProjectImage" className="project-image" />
+          <div className="project-image-wrapper">
+            <img src={MyPort} alt="ProjectImage" className="project-image" />
+            <div className="project-overlay">
+              <a href="/" className="project-link">View Project</a>
+            </div>
+          </div>
           <h1 className="project-heading-name">My Portfolio</h1>
-          <p className="visit-website">
-            Visit :- <a href="/">Personal Portfolio</a>
-          </p>
           <p className="project-details">
-            I Create a project in React Js for my Personal Portfolio. This
-            project will showcase my skills, project and experience in front-end
-            Development.
+            Personal portfolio showcasing skills, projects and experience in front-end development.
           </p>
         </div>
         <div className="project-slide">
-          <img src={Calculator} alt="ProjectImage" className="project-image" />
+          <div className="project-image-wrapper">
+            <img src={Calculator} alt="ProjectImage" className="project-image" />
+            <div className="project-overlay">
+              <a href="https://calculator-vikuu.vercel.app/" target="_blank" rel="noreferrer" className="project-link">View Project</a>
+            </div>
+          </div>
           <h1 className="project-heading-name">Calculator Project</h1>
-          <p className="visit-website">
-            Visit :-{" "}
-            <a href="https://calculator-vikuu.vercel.app/">
-              Calculator Project
-            </a>
-          </p>
           <p className="project-details">
-            I built a project with a calculator and age calculator using HTML,
-            CSS, and JavaScript, where JavaScript functions manage button
-            interactions, calculations, and result displays.
+            Built with HTML, CSS, and JavaScript featuring calculator and age calculator with interactive functions.
           </p>
         </div>
       </Slider>
@@ -151,7 +149,20 @@ const Carousel = () => {
 };
 
 function Home() {
-  // Start the typing Codee
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+  };
+
+  // Typing effect
   const typingTimeoutRef = useRef(null);
   const erasingTimeoutRef = useRef(null);
   const currentTextIndexRef = useRef(0);
@@ -197,20 +208,25 @@ function Home() {
 
     type();
 
-    // Cleanup function to clear timeouts if the component unmounts
     return () => {
       clearTimeout(typingTimeoutRef.current);
       clearTimeout(erasingTimeoutRef.current);
     };
   }, []);
 
-  const handleDownload = () => {
-    // Replace this with the actual file URL or path
-    const fileUrl = "/Vikash Sharma Resume II.pdf";
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100,
+    });
+  }, []);
 
+  const handleDownload = () => {
+    const fileUrl = "/Vikash Sharma Resume II.pdf";
     const link = document.createElement("a");
     link.href = fileUrl;
-    link.download = "Vikash Sharma Resume II.pdf"; // Name the downloaded file
+    link.download = "Vikash Sharma Resume II.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -224,46 +240,44 @@ function Home() {
     subject: "",
     message: "",
   });
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
 
-  try {
-    // Send email to website owner
-    await emailjs.send(
-      "service_xhb4lql",
-      "template_tt7dd2k",
-      {
-        from_name: formData.name,
-        from_email: formData.email,
-        from_subject: formData.subject,
-        message: formData.message,
-      },
-      "_ejeQU96yZXmYtUdm"
-    );
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    // Send thank you email to sender
-    await emailjs.send(
-      "service_xhb4lql",
-      "template_thvj6b4",
-      {
-        to_email: formData.email,
-        to_name: formData.name,
-        to_subject: formData.subject,
-        original_message: formData.message,
-      },
-      "_ejeQU96yZXmYtUdm"
-    );
+    try {
+      await emailjs.send(
+        "service_xhb4lql",
+        "template_tt7dd2k",
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          from_subject: formData.subject,
+          message: formData.message,
+        },
+        "_ejeQU96yZXmYtUdm"
+      );
 
-    alert("Message sent successfully!");
-    setFormData({ name: "", email: "", subject: "", message: "" });
-  } catch (error) {
-    alert("Failed to send message. Please try again.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+      await emailjs.send(
+        "service_xhb4lql",
+        "template_thvj6b4",
+        {
+          to_email: formData.email,
+          to_name: formData.name,
+          to_subject: formData.subject,
+          original_message: formData.message,
+        },
+        "_ejeQU96yZXmYtUdm"
+      );
 
+      alert("Message sent successfully!");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -273,20 +287,34 @@ const handleSubmit = async (e) => {
   };
 
   const technicalSkills = [
-    { name: "HTML", width: "90%", level: "Advanced" },
-    { name: "CSS", width: "88%", level: "Advanced" },
-    { name: "JavaScript", width: "75%", level: "Strong" },
-    { name: "React.js", width: "82%", level: "Strong" },
-    { name: "Next.js", width: "65%", level: "Growing" },
-    { name: "Tailwind CSS", width: "72%", level: "Strong" },
-    { name: "Cloud Computing", width: "68%", level: "Growing" },
+    { name: "HTML", icon: <FaHtml5 />, color: "#E34F26" },
+    { name: "CSS", icon: <FaCss3Alt />, color: "#1572B6" },
+    { name: "JavaScript", icon: <FaJs />, color: "#F7DF1E" },
+    { name: "React.js", icon: <FaReact />, color: "#61DAFB" },
+    { name: "Next.js", icon: <SiNextdotjs />, color: "#000000" },
+    { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4" },
+    { name: "Cloud Computing", icon: <FaCloud />, color: "#4285F4" },
   ];
 
   return (
     <>
+      <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+        {theme === 'light' ? <BsMoon /> : <BsSun />}
+      </button>
+
+      <div className="background-animation">
+        <div className="floating-shapes">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
       <main className="main">
         <section className="Home" id="Home">
-          <div className="ProfileContainer">
+          <div className="ProfileContainer" data-aos="fade-right">
             <div className="ProfileName1">Vikash Sharma</div>
             <div className="ProfileName2">
               I'm <span id="Typing" className="Typing"></span>
@@ -309,15 +337,13 @@ const handleSubmit = async (e) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                {" "}
-                <FontAwesomeIcon icon={faLinkedinIn} className="twitter" />{" "}
-              </a>{" "}
+                <FontAwesomeIcon icon={faLinkedinIn} className="twitter" />
+              </a>
               <a
                 href="https://github.com/vikuuuuu"
                 target="_blank"
                 rel="noreferrer"
               >
-                {" "}
                 <FontAwesomeIcon icon={faGithub} className="twitter" />
               </a>
               <a
@@ -325,56 +351,54 @@ const handleSubmit = async (e) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                {" "}
-                <FontAwesomeIcon icon={faXTwitter} className="twitter" />{" "}
+                <FontAwesomeIcon icon={faXTwitter} className="twitter" />
               </a>
               <a
                 href="https://wa.me/919571404881?text=Hello%2C%20Vikash%20Sharma"
                 target="_blank"
                 rel="noreferrer"
               >
-                {" "}
-                <FontAwesomeIcon icon={faWhatsapp} className="twitter" />{" "}
+                <FontAwesomeIcon icon={faWhatsapp} className="twitter" />
               </a>
-                  <a
+              <a
                 href="https://aratt.ai/user/@vikusrma"
                 target="_blank"
                 rel="noreferrer"
               >
-                {" "}
-                  <img
-                    className="socialIconImage"
-                    src="https://img.icons8.com/color/48/arattai.png"
-                    alt="arattai"
-                  />
+                <img
+                  className="socialIconImage"
+                  src="https://img.icons8.com/color/48/arattai.png"
+                  alt="arattai"
+                />
               </a>
             </div>
           </div>
-          <img className="Profile" src={ProfileImage} alt="Profile" />
+          <div className="ProfileImageContainer" data-aos="fade-left">
+            <img className="Profile" src={ProfileImage} alt="Profile" />
+          </div>
         </section>
+
         <section className="About" id="About" data-aos="fade-up">
           <div className="AboutContainer-Box">
-            <div className="Aboutbox1">
+            <div className="Aboutbox1" data-aos="zoom-in">
               <img src={ProfilePic} alt="ProfilePic" />
             </div>
-            <div className="Aboutbox2">
-              <h1 className="AboutTitle" data-aos="fade-down">
-                About Me
-              </h1>
-              <p className="AboutDetails" data-aos="fade-down">
+            <div className="Aboutbox2" data-aos="fade-left">
+              <h1 className="AboutTitle">About Me</h1>
+              <p className="AboutDetails">
                 I'm a frontend web developer and graphic designer who blends
                 code and creativity to build engaging, user-friendly websites. I
                 use tools like React.js and Svelte.js to turn ideas into smooth,
                 eye-catching digital experiences.
               </p>
-              <button className="Resumebtn" onClick={handleDownload} data-aos="fade-down">
-                {" "}
+              <button className="Resumebtn" onClick={handleDownload}>
                 Resume
                 <MdOutlineFileDownload className="downloadbtn" />
               </button>
             </div>
           </div>
         </section>
+
         <section className="Skills" id="Skills" data-aos="fade-up">
           <h1 className="SkillsTitle" data-aos="fade-down">
             Technical Skills
@@ -382,21 +406,15 @@ const handleSubmit = async (e) => {
           <div className="SkillsContainer">
             {technicalSkills.map((skill, index) => (
               <div
-                className="SkillItem"
-                data-aos="fade-down"
+                className="SkillIconCard"
+                data-aos="flip-up"
                 data-aos-delay={index * 100}
                 key={skill.name}
               >
-                <div className="SkillLabel">
-                  <span>{skill.name}</span>
-                  <span className="SkillLevelTag">{skill.level}</span>
+                <div className="SkillIconWrapper" style={{ '--skill-color': skill.color }}>
+                  {skill.icon}
                 </div>
-                <div className="SkillBar">
-                  <div
-                    className="SkillProgress"
-                    style={{ width: skill.width, animationDelay: `${index * 0.2}s` }}
-                  ></div>
-                </div>
+                <h3 className="SkillName">{skill.name}</h3>
               </div>
             ))}
           </div>
@@ -407,19 +425,22 @@ const handleSubmit = async (e) => {
             Experience
           </h1>
           <div className="ExperienceContainer">
-            <article className="ExperienceCard" data-aos="fade-down">
+            <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="100">
+              <div className="experience-number">01</div>
               <h3 className="ExperienceRole">Digital Marketing</h3>
               <p className="ExperienceCompany">The Raptor Marketing</p>
               <p className="ExperienceDuration">Jan 2023 – June 2023</p>
             </article>
 
-            <article className="ExperienceCard" data-aos="fade-down">
+            <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="200">
+              <div className="experience-number">02</div>
               <h3 className="ExperienceRole">Web Developer</h3>
               <p className="ExperienceCompany">3Handshake Innovation Pvt. Ltd.</p>
               <p className="ExperienceDuration">Jan 2024 – Aug 2024</p>
             </article>
 
-            <article className="ExperienceCard" data-aos="fade-down">
+            <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="300">
+              <div className="experience-number">03</div>
               <h3 className="ExperienceRole">Web Developer</h3>
               <p className="ExperienceCompany">NullCyberX</p>
               <p className="ExperienceDuration">Jan 2025 – Aug 2025</p>
@@ -441,7 +462,7 @@ const handleSubmit = async (e) => {
 
               <h4 className="CourseworkTitle">Relevant Coursework</h4>
               <div className="CourseworkList">
-                <div className="CourseCard" data-aos="flip-left">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="100">
                   <div className="CourseIconBox">
                     <FaCloud className="CourseIcon" />
                   </div>
@@ -452,7 +473,7 @@ const handleSubmit = async (e) => {
                   </p>
                 </div>
 
-                <div className="CourseCard" data-aos="flip-right">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="200">
                   <div className="CourseIconBox">
                     <FaShieldAlt className="CourseIcon" />
                   </div>
@@ -463,7 +484,7 @@ const handleSubmit = async (e) => {
                   </p>
                 </div>
 
-                <div className="CourseCard" data-aos="flip-left">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="300">
                   <div className="CourseIconBox">
                     <FaServer className="CourseIcon" />
                   </div>
@@ -474,7 +495,7 @@ const handleSubmit = async (e) => {
                   </p>
                 </div>
 
-                <div className="CourseCard" data-aos="flip-right">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="400">
                   <div className="CourseIconBox">
                     <FaNetworkWired className="CourseIcon" />
                   </div>
@@ -485,7 +506,7 @@ const handleSubmit = async (e) => {
                   </p>
                 </div>
 
-                <div className="CourseCard" data-aos="flip-left">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="500">
                   <div className="CourseIconBox">
                     <FaProjectDiagram className="CourseIcon" />
                   </div>
@@ -496,7 +517,7 @@ const handleSubmit = async (e) => {
                   </p>
                 </div>
 
-                <div className="CourseCard" data-aos="flip-right">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="600">
                   <div className="CourseIconBox">
                     <FaPython className="CourseIcon" />
                   </div>
@@ -510,18 +531,19 @@ const handleSubmit = async (e) => {
             </div>
           </div>
         </section>
+
         <section className="Project" id="Project" data-aos="fade-down">
-        <h1 className="ProjectTitle" data-aos="fade-down">
-          Projects
-        </h1>
-        <Carousel />
-      </section>
+          <h1 className="ProjectTitle" data-aos="fade-down">
+            Projects
+          </h1>
+          <Carousel />
+        </section>
+
         <section className="contact-section" id="Contact" data-aos="fade-up">
           <div className="contact-container">
             <h2 className="contact-title">Contact</h2>
-            <div className="contact-grid" >
-              {/* Contact Info */}
-              <div className="contact-info" data-aos="fade-up">
+            <div className="contact-grid">
+              <div className="contact-info" data-aos="fade-right">
                 <div className="info-block">
                   <div className="icon-circle">
                     <FaMapMarkerAlt />
@@ -544,7 +566,7 @@ const handleSubmit = async (e) => {
 
                 <div className="info-block">
                   <div className="icon-circle">
-                    <CiMail />{" "}
+                    <CiMail />
                   </div>
                   <div>
                     <h4>Email Us</h4>
@@ -553,8 +575,7 @@ const handleSubmit = async (e) => {
                 </div>
               </div>
 
-              {/* Contact Form */}
-              <form className="contact-form" onSubmit={handleSubmit} data-aos="fade-up">
+              <form className="contact-form" onSubmit={handleSubmit} data-aos="fade-left">
                 <div className="form-row">
                   <input
                     type="text"
@@ -596,6 +617,7 @@ const handleSubmit = async (e) => {
             </div>
           </div>
         </section>
+
         <footer className="footer">©2025 Vikash Sharma</footer>
       </main>
     </>

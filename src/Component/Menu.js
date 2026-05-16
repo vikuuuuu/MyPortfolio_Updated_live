@@ -6,14 +6,13 @@ import { IoDocumentTextOutline } from "react-icons/io5";
 import { CiMail } from "react-icons/ci";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 
-
- const menuItems = [
-    { id: "Home", icon: <IoHomeOutline /> },
-    { id: "About", icon: <CiUser /> },
-    { id: "Skills", icon: <IoDocumentTextOutline /> },
-    { id: "Project", icon: <AiOutlineFundProjectionScreen /> },
-    { id: "Contact", icon: <CiMail /> },
-  ];
+const menuItems = [
+  { id: "Home", icon: <IoHomeOutline />, label: "Home" },
+  { id: "About", icon: <CiUser />, label: "About" },
+  { id: "Skills", icon: <IoDocumentTextOutline />, label: "Skills" },
+  { id: "Project", icon: <AiOutlineFundProjectionScreen />, label: "Projects" },
+  { id: "Contact", icon: <CiMail />, label: "Contact" },
+];
 
 function Menu() {
   const [active, setActive] = useState("Home");
@@ -64,8 +63,10 @@ function Menu() {
           key={item.id}
           className={`menuItem ${active === item.id ? "active" : ""}`}
           onClick={() => handleClick(item.id)}
+          title={item.label}
         >
-          {item.icon}
+          <div className="menuIcon">{item.icon}</div>
+          <span className="menuLabel">{item.label}</span>
         </div>
       ))}
     </div>

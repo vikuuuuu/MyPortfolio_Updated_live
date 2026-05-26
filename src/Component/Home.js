@@ -22,13 +22,8 @@ import {
   FaJs,
   FaReact,
 } from "react-icons/fa";
-import { 
-  SiNextdotjs, 
-  SiTailwindcss,
-} from "react-icons/si";
-
-import { FaMapMarkerAlt } from "react-icons/fa";
-import { FaPhoneAlt } from "react-icons/fa";
+import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
+import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { BsSun, BsMoon } from "react-icons/bs";
 
@@ -40,127 +35,173 @@ import Calculator from "./img/Calculator image.png";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-
 import emailjs from "@emailjs/browser";
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-const Carousel = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          arrows: false,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 860,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false,
-        },
-      },
+// ─── Flip Card Projects ───────────────────────────────────────────────
+const projectsData = [
+  {
+    id: 1,
+    emoji: "🖥️",
+    image: null,
+    title: "MyDashboard",
+    desc: "All-in-one productivity dashboard with 10+ built-in tools.",
+    tag: "React.js",
+    tagClass: "react",
+    url: "https://mydashboard-vikuu.vercel.app/dashboard",
+    isDashboard: true,
+    features: [
+      "Notes", "My Financials", "Image → PDF",
+      "All-in-One Image", "PDF Tool", "Video → Image",
+      "Web Chat", "My Video Editor", "All File Studio", "Study Tool",
     ],
+  },
+  {
+    id: 2,
+    image: OnlineExam,
+    title: "Online Exam Dashboard",
+    desc: "Real-time exam platform with intuitive UX and score tracking.",
+    tag: "React.js",
+    tagClass: "react",
+    url: "https://quizmasterr-eta.vercel.app/",
+    features: ["Real-time quiz engine", "Score & timer system", "Result analytics", "Responsive UI"],
+  },
+  {
+    id: 3,
+    image: APWebsite,
+    title: "ApnaBackup Website",
+    desc: "Data backup & recovery software marketing site.",
+    tag: "React.js",
+    tagClass: "react",
+    url: "https://apnabackup.com",
+    features: ["Product showcase", "Feature highlights", "CTA sections", "Fully responsive"],
+  },
+  {
+    id: 4,
+    image: APDashboard,
+    title: "ApnaBackup Dashboard",
+    desc: "Business backup software with real-time data protection.",
+    tag: "In Progress",
+    tagClass: "inprogress",
+    url: null,
+    features: ["Real-time protection", "Cloud storage", "Secure backup", "Business analytics"],
+  },
+  {
+    id: 5,
+    image: MyPort,
+    title: "My Portfolio",
+    desc: "Personal portfolio showcasing skills, projects & experience.",
+    tag: "React.js",
+    tagClass: "react",
+    url: "/",
+    features: ["Dark / Light mode", "AOS animations", "Typing effect", "EmailJS contact"],
+  },
+  {
+    id: 6,
+    image: Calculator,
+    title: "Calculator Project",
+    desc: "Multi-function calculator with standard and age modes.",
+    tag: "HTML/CSS/JS",
+    tagClass: "html",
+    url: "https://calculator-vikuu.vercel.app/",
+    features: ["Standard calculator", "Age calculator", "Interactive UI", "Pure vanilla JS"],
+  },
+];
+
+function FlipCard({ project }) {
+  const [flipped, setFlipped] = useState(false);
+
+  const handleClick = (e) => {
+    if (e.target.tagName === "A") return;
+    setFlipped((f) => !f);
   };
 
   return (
-    <div className="carousel-container" data-aos="fade-up">
-      <Slider {...settings}>
-        <div className="project-slide">
-          <div className="project-image-wrapper">
-            <img src={OnlineExam} alt="ProjectImage" className="project-image" />
-            <div className="project-overlay">
-              <a href="https://quizmasterr-eta.vercel.app/" target="_blank" rel="noreferrer" className="project-link">View Project</a>
-            </div>
+    <div
+      className={`flip-card${flipped ? " flipped" : ""}`}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && setFlipped((f) => !f)}
+      aria-label={`${project.title} — click to flip`}
+    >
+      <div className="flip-card-inner">
+        {/* FRONT */}
+        <div className="flip-card-front">
+          <div className="card-img-area">
+            {project.image ? (
+              <img src={project.image} alt={project.title} />
+            ) : (
+              <div className="card-img-placeholder">{project.emoji}</div>
+            )}
+            <span className={`card-tag-badge ${project.tagClass}`}>
+              {project.tag}
+            </span>
           </div>
-          <h1 className="project-heading-name">Online Exam Dashboard</h1>
-          <p className="project-details">
-            Developing an online Examination Dashboard using React.js with intuitive user experience and real-time updates.
-          </p>
-        </div>
-        <div className="project-slide">
-          <div className="project-image-wrapper">
-            <img src={APWebsite} alt="ProjectImage" className="project-image" />
-            <div className="project-overlay">
-              <a href="https://apnabackup.com" target="_blank" rel="noreferrer" className="project-link">View Project</a>
-            </div>
+          <div className="card-body-front">
+            <div className="card-name">{project.title}</div>
+            <p className="card-desc-short">{project.desc}</p>
           </div>
-          <h1 className="project-heading-name">ApnaBackup Website</h1>
-          <p className="project-details">
-            Creating a comprehensive React.js solution for data backup and recovery software website.
-          </p>
-        </div>
-        <div className="project-slide">
-          <div className="project-image-wrapper">
-            <img src={APDashboard} alt="ProjectImage" className="project-image" />
-            <div className="project-overlay">
-              <span className="project-link in-progress">In Progress</span>
-            </div>
+          <div className="flip-hint-bar">
+            <span>
+              <span className="flip-dot" />
+              Click to see details
+            </span>
+            <span>↕</span>
           </div>
-          <h1 className="project-heading-name">ApnaBackup Dashboard</h1>
-          <p className="project-details">
-            Business-oriented backup software offering real-time data protection and secure cloud storage.
-          </p>
         </div>
 
-        <div className="project-slide">
-          <div className="project-image-wrapper">
-            <img src={MyPort} alt="ProjectImage" className="project-image" />
-            <div className="project-overlay">
-              <a href="/" className="project-link">View Project</a>
+        {/* BACK */}
+        <div className="flip-card-back">
+          <div className="back-card-title">{project.title}</div>
+
+          {project.isDashboard ? (
+            <div className="dash-features-grid">
+              {project.features.map((f) => (
+                <div className="dash-feat-item" key={f}>{f}</div>
+              ))}
             </div>
+          ) : (
+            <ul className="back-features-list">
+              {project.features.map((f) => (
+                <li key={f}>{f}</li>
+              ))}
+            </ul>
+          )}
+
+          <div className="back-cta-row">
+            {project.url ? (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noreferrer"
+                className="back-view-btn"
+                onClick={(e) => e.stopPropagation()}
+              >
+                View Project ↗
+              </a>
+            ) : (
+              <span className="back-view-btn disabled">🚧 In Progress</span>
+            )}
           </div>
-          <h1 className="project-heading-name">My Portfolio</h1>
-          <p className="project-details">
-            Personal portfolio showcasing skills, projects and experience in front-end development.
-          </p>
         </div>
-        <div className="project-slide">
-          <div className="project-image-wrapper">
-            <img src={Calculator} alt="ProjectImage" className="project-image" />
-            <div className="project-overlay">
-              <a href="https://calculator-vikuu.vercel.app/" target="_blank" rel="noreferrer" className="project-link">View Project</a>
-            </div>
-          </div>
-          <h1 className="project-heading-name">Calculator Project</h1>
-          <p className="project-details">
-            Built with HTML, CSS, and JavaScript featuring calculator and age calculator with interactive functions.
-          </p>
-        </div>
-      </Slider>
+      </div>
     </div>
   );
-};
+}
 
+// ─── Main Home Component ──────────────────────────────────────────────
 function Home() {
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'dark';
-  });
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "dark"
+  );
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   // Typing effect
   const typingTimeoutRef = useRef(null);
@@ -170,17 +211,16 @@ function Home() {
 
   useEffect(() => {
     const textElement = document.getElementById("Typing");
+    if (!textElement) return;
     const texts = ["Front-end Developer 💻", "Graphic Designer 🎨"];
     const typingSpeed = 100;
     const delayBetweenTexts = 1000;
 
     function type() {
-      const currentTextIndex = currentTextIndexRef.current;
-      const currentCharIndex = currentCharIndexRef.current;
-
-      if (currentCharIndex < texts[currentTextIndex].length) {
-        textElement.textContent +=
-          texts[currentTextIndex].charAt(currentCharIndex);
+      const idx = currentTextIndexRef.current;
+      const charIdx = currentCharIndexRef.current;
+      if (charIdx < texts[idx].length) {
+        textElement.textContent += texts[idx].charAt(charIdx);
         currentCharIndexRef.current += 1;
         typingTimeoutRef.current = setTimeout(type, typingSpeed);
       } else {
@@ -189,25 +229,19 @@ function Home() {
     }
 
     function erase() {
-      const currentTextIndex = currentTextIndexRef.current;
-      const currentCharIndex = currentCharIndexRef.current;
-
-      if (currentCharIndex > 0) {
-        textElement.textContent = texts[currentTextIndex].substring(
-          0,
-          currentCharIndex - 1
-        );
+      const idx = currentTextIndexRef.current;
+      const charIdx = currentCharIndexRef.current;
+      if (charIdx > 0) {
+        textElement.textContent = texts[idx].substring(0, charIdx - 1);
         currentCharIndexRef.current -= 1;
         erasingTimeoutRef.current = setTimeout(erase, typingSpeed);
       } else {
-        currentTextIndexRef.current = (currentTextIndex + 1) % texts.length;
-        currentCharIndexRef.current = 0;
+        currentTextIndexRef.current = (idx + 1) % texts.length;
         typingTimeoutRef.current = setTimeout(type, typingSpeed);
       }
     }
 
     type();
-
     return () => {
       clearTimeout(typingTimeoutRef.current);
       clearTimeout(erasingTimeoutRef.current);
@@ -215,17 +249,12 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-      offset: 100,
-    });
+    AOS.init({ duration: 900, once: true, offset: 80 });
   }, []);
 
   const handleDownload = () => {
-    const fileUrl = "/Vikash Sharma Resume II.pdf";
     const link = document.createElement("a");
-    link.href = fileUrl;
+    link.href = "/Vikash Sharma Resume II.pdf";
     link.download = "Vikash Sharma Resume II.pdf";
     document.body.appendChild(link);
     link.click();
@@ -233,185 +262,133 @@ function Home() {
   };
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
+    name: "", email: "", subject: "", message: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       await emailjs.send(
-        "service_xhb4lql",
-        "template_tt7dd2k",
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          from_subject: formData.subject,
-          message: formData.message,
-        },
+        "service_xhb4lql", "template_tt7dd2k",
+        { from_name: formData.name, from_email: formData.email, from_subject: formData.subject, message: formData.message },
         "_ejeQU96yZXmYtUdm"
       );
-
       await emailjs.send(
-        "service_xhb4lql",
-        "template_thvj6b4",
-        {
-          to_email: formData.email,
-          to_name: formData.name,
-          to_subject: formData.subject,
-          original_message: formData.message,
-        },
+        "service_xhb4lql", "template_thvj6b4",
+        { to_email: formData.email, to_name: formData.name, to_subject: formData.subject, original_message: formData.message },
         "_ejeQU96yZXmYtUdm"
       );
-
       alert("Message sent successfully!");
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (error) {
+    } catch {
       alert("Failed to send message. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const technicalSkills = [
-    { name: "HTML", icon: <FaHtml5 />, color: "#E34F26" },
-    { name: "CSS", icon: <FaCss3Alt />, color: "#1572B6" },
-    { name: "JavaScript", icon: <FaJs />, color: "#F7DF1E" },
-    { name: "React.js", icon: <FaReact />, color: "#61DAFB" },
-    { name: "Next.js", icon: <SiNextdotjs />, color: "#000000" },
-    { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4" },
-    { name: "Cloud Computing", icon: <FaCloud />, color: "#4285F4" },
+    { name: "HTML",          icon: <FaHtml5 />,       color: "#E34F26" },
+    { name: "CSS",           icon: <FaCss3Alt />,      color: "#1572B6" },
+    { name: "JavaScript",    icon: <FaJs />,           color: "#F7DF1E" },
+    { name: "React.js",      icon: <FaReact />,        color: "#61DAFB" },
+    { name: "Next.js",       icon: <SiNextdotjs />,    color: "#888888" },
+    { name: "Tailwind CSS",  icon: <SiTailwindcss />,  color: "#06B6D4" },
+    { name: "Cloud Computing",icon: <FaCloud />,       color: "#4285F4" },
   ];
 
   return (
     <>
+      {/* Theme toggle */}
       <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-        {theme === 'light' ? <BsMoon /> : <BsSun />}
+        {theme === "light" ? <BsMoon /> : <BsSun />}
       </button>
 
-      <div className="background-animation">
+      {/* Background */}
+      <div className="background-animation" aria-hidden="true">
         <div className="floating-shapes">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span /><span /><span /><span /><span />
         </div>
       </div>
 
       <main className="main">
+
+        {/* ── HOME ── */}
         <section className="Home" id="Home">
           <div className="ProfileContainer" data-aos="fade-right">
             <div className="ProfileName1">Vikash Sharma</div>
             <div className="ProfileName2">
-              I'm <span id="Typing" className="Typing"></span>
+              I'm <span id="Typing" className="Typing" />
             </div>
             <p className="HeroTagline">
               Crafting bold, high-converting interfaces with delightful motion,
               clean code, and modern UX patterns.
             </p>
             <div className="HeroActions">
-              <a className="PrimaryAction" href="#Contact">
-                Let&apos;s Collaborate
-              </a>
-              <a className="SecondaryAction" href="#Project">
-                View Projects
-              </a>
+              <a className="PrimaryAction" href="#Contact">Let's Collaborate</a>
+              <a className="SecondaryAction" href="#Project">View Projects</a>
             </div>
             <div className="ProfileIcon">
-              <a
-                href="https://www.linkedin.com/in/vikash-sharma-48b27a263/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faLinkedinIn} className="twitter" />
+              <a href="https://www.linkedin.com/in/vikash-sharma-48b27a263/" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faLinkedinIn} />
               </a>
-              <a
-                href="https://github.com/vikuuuuu"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faGithub} className="twitter" />
+              <a href="https://github.com/vikuuuuu" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faGithub} />
               </a>
-              <a
-                href="https://x.com/vikashsrma"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faXTwitter} className="twitter" />
+              <a href="https://x.com/vikashsrma" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faXTwitter} />
               </a>
-              <a
-                href="https://wa.me/919571404881?text=Hello%2C%20Vikash%20Sharma"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FontAwesomeIcon icon={faWhatsapp} className="twitter" />
+              <a href="https://wa.me/919571404881?text=Hello%2C%20Vikash%20Sharma" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faWhatsapp} />
               </a>
-              <a
-                href="https://aratt.ai/user/@vikusrma"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  className="socialIconImage"
-                  src="https://img.icons8.com/color/48/arattai.png"
-                  alt="arattai"
-                />
+              <a href="https://aratt.ai/user/@vikusrma" target="_blank" rel="noreferrer">
+                <img className="socialIconImage" src="https://img.icons8.com/color/48/arattai.png" alt="arattai" />
               </a>
             </div>
           </div>
           <div className="ProfileImageContainer" data-aos="fade-left">
-            <img className="Profile" src={ProfileImage} alt="Profile" />
+            <img className="Profile" src={ProfileImage} alt="Vikash Sharma" />
           </div>
         </section>
 
+        {/* ── ABOUT ── */}
         <section className="About" id="About" data-aos="fade-up">
           <div className="AboutContainer-Box">
             <div className="Aboutbox1" data-aos="zoom-in">
-              <img src={ProfilePic} alt="ProfilePic" />
+              <img src={ProfilePic} alt="Vikash Sharma" />
             </div>
             <div className="Aboutbox2" data-aos="fade-left">
               <h1 className="AboutTitle">About Me</h1>
               <p className="AboutDetails">
                 I'm a frontend web developer and graphic designer who blends
                 code and creativity to build engaging, user-friendly websites. I
-                use tools like React.js and Svelte.js to turn ideas into smooth,
+                use tools like React.js and Next.js to turn ideas into smooth,
                 eye-catching digital experiences.
               </p>
               <button className="Resumebtn" onClick={handleDownload}>
-                Resume
-                <MdOutlineFileDownload className="downloadbtn" />
+                Resume <MdOutlineFileDownload className="downloadbtn" />
               </button>
             </div>
           </div>
         </section>
 
+        {/* ── SKILLS ── */}
         <section className="Skills" id="Skills" data-aos="fade-up">
-          <h1 className="SkillsTitle" data-aos="fade-down">
-            Technical Skills
-          </h1>
+          <h1 className="SkillsTitle" data-aos="fade-down">Technical Skills</h1>
           <div className="SkillsContainer">
-            {technicalSkills.map((skill, index) => (
+            {technicalSkills.map((skill, i) => (
               <div
                 className="SkillIconCard"
                 data-aos="flip-up"
-                data-aos-delay={index * 100}
+                data-aos-delay={i * 80}
                 key={skill.name}
               >
-                <div className="SkillIconWrapper" style={{ '--skill-color': skill.color }}>
+                <div className="SkillIconWrapper" style={{ "--skill-color": skill.color }}>
                   {skill.icon}
                 </div>
                 <h3 className="SkillName">{skill.name}</h3>
@@ -420,10 +397,9 @@ function Home() {
           </div>
         </section>
 
+        {/* ── EXPERIENCE ── */}
         <section className="Experience" id="Experience" data-aos="fade-up">
-          <h1 className="ExperienceTitle" data-aos="fade-down">
-            Experience
-          </h1>
+          <h1 className="ExperienceTitle" data-aos="fade-down">Experience</h1>
           <div className="ExperienceContainer">
             <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="100">
               <div className="experience-number">01</div>
@@ -431,14 +407,12 @@ function Home() {
               <p className="ExperienceCompany">The Raptor Marketing</p>
               <p className="ExperienceDuration">Jan 2023 – June 2023</p>
             </article>
-
             <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="200">
               <div className="experience-number">02</div>
               <h3 className="ExperienceRole">Web Developer</h3>
               <p className="ExperienceCompany">3Handshake Innovation Pvt. Ltd.</p>
               <p className="ExperienceDuration">Jan 2024 – Aug 2024</p>
             </article>
-
             <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="300">
               <div className="experience-number">03</div>
               <h3 className="ExperienceRole">Web Developer</h3>
@@ -448,126 +422,142 @@ function Home() {
           </div>
         </section>
 
+        {/* ── EDUCATION ── */}
         <section className="Education" id="Education" data-aos="fade-up">
-          <h1 className="EducationTitle" data-aos="fade-down">
-            Education
-          </h1>
+          <h1 className="EducationTitle" data-aos="fade-down">Education</h1>
           <div className="EducationContainer">
-            <div className="EducationCard">
-              <h2 className="Degree">Bachelor of Vocational [B.Voc]</h2>
-              <h3 className="University">
-                Bhartiya Skill Development University, Jaipur
-              </h3>
-              <p className="Year">2021 – 2024</p>
 
-              <h4 className="CourseworkTitle">Relevant Coursework</h4>
+            {/* MCA — NEW */}
+            <div className="EducationCard" data-aos="fade-up" data-aos-delay="100">
+              <span className="edu-badge pursuing">🎓 Currently Pursuing</span>
+              <h2 className="Degree">Master of Computer Applications (MCA)</h2>
+              <h3 className="University">Rajasthan Technical University, Kota</h3>
+              <p className="Year">2025 – 2027</p>
+              <h4 className="CourseworkTitle">Key Subjects</h4>
               <div className="CourseworkList">
                 <div className="CourseCard" data-aos="fade-up" data-aos-delay="100">
-                  <div className="CourseIconBox">
-                    <FaCloud className="CourseIcon" />
-                  </div>
-                  <h4>Cloud Computing</h4>
-                  <p>
-                    Learned about cloud infrastructure, virtualization, and
-                    deployment models using platforms like AWS and Azure.
-                  </p>
+                  <div className="CourseIconBox"><FaReact className="CourseIcon" /></div>
+                  <h4>Advanced Java</h4>
+                  <p>Object-oriented programming, multithreading, collections framework and enterprise-level application development.</p>
                 </div>
-
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="150">
+                  <div className="CourseIconBox"><FaServer className="CourseIcon" /></div>
+                  <h4>DBMS &amp; SQL</h4>
+                  <p>Relational database design, normalization, query optimization and transaction management.</p>
+                </div>
                 <div className="CourseCard" data-aos="fade-up" data-aos-delay="200">
-                  <div className="CourseIconBox">
-                    <FaShieldAlt className="CourseIcon" />
-                  </div>
-                  <h4>Cyber Security</h4>
-                  <p>
-                    Gained knowledge of network security, firewalls, threat
-                    analysis, and ethical hacking practices.
-                  </p>
+                  <div className="CourseIconBox"><FaProjectDiagram className="CourseIcon" /></div>
+                  <h4>Data Structures &amp; Algorithms</h4>
+                  <p>Trees, graphs, sorting algorithms, dynamic programming and problem-solving techniques.</p>
                 </div>
-
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="250">
+                  <div className="CourseIconBox"><FaNetworkWired className="CourseIcon" /></div>
+                  <h4>Computer Networks</h4>
+                  <p>OSI model, TCP/IP, routing protocols, network security and wireless communication.</p>
+                </div>
                 <div className="CourseCard" data-aos="fade-up" data-aos-delay="300">
-                  <div className="CourseIconBox">
-                    <FaServer className="CourseIcon" />
-                  </div>
-                  <h4>Windows Server Administration</h4>
-                  <p>
-                    Worked with Windows Server to configure Active Directory,
-                    user permissions, and network roles.
-                  </p>
+                  <div className="CourseIconBox"><FaShieldAlt className="CourseIcon" /></div>
+                  <h4>Information Security</h4>
+                  <p>Cryptography, ethical hacking principles, threat analysis and secure system design.</p>
                 </div>
-
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="350">
+                  <div className="CourseIconBox"><FaCloud className="CourseIcon" /></div>
+                  <h4>Software Engineering</h4>
+                  <p>SDLC models, Agile methodology, design patterns, testing and project management.</p>
+                </div>
                 <div className="CourseCard" data-aos="fade-up" data-aos-delay="400">
-                  <div className="CourseIconBox">
-                    <FaNetworkWired className="CourseIcon" />
-                  </div>
-                  <h4>Computer Networking</h4>
-                  <p>
-                    Studied OSI model, IP addressing, routing, switching, and
-                    basic troubleshooting techniques.
-                  </p>
+                  <div className="CourseIconBox"><FaPython className="CourseIcon" /></div>
+                  <h4>Machine Learning</h4>
+                  <p>Supervised/unsupervised learning, regression, classification and neural network fundamentals.</p>
                 </div>
-
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="500">
-                  <div className="CourseIconBox">
-                    <FaProjectDiagram className="CourseIcon" />
-                  </div>
-                  <h4>Network Designing</h4>
-                  <p>
-                    Learned to design and plan scalable and secure network
-                    infrastructures using simulation tools.
-                  </p>
-                </div>
-
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="600">
-                  <div className="CourseIconBox">
-                    <FaPython className="CourseIcon" />
-                  </div>
-                  <h4>Python Programming</h4>
-                  <p>
-                    Developed applications using Python, focusing on functions,
-                    data structures, and automation scripts.
-                  </p>
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="450">
+                  <div className="CourseIconBox"><FaCloud className="CourseIcon" /></div>
+                  <h4>Cloud Computing</h4>
+                  <p>Cloud architectures, AWS services, virtualization, containers and serverless deployment.</p>
                 </div>
               </div>
             </div>
+
+            {/* B.Voc */}
+            <div className="EducationCard" data-aos="fade-up" data-aos-delay="200">
+              <span className="edu-badge completed">✅ Completed</span>
+              <h2 className="Degree">Bachelor of Vocational (B.Voc)</h2>
+              <h3 className="University">Bhartiya Skill Development University, Jaipur</h3>
+              <p className="Year">2021 – 2024</p>
+              <h4 className="CourseworkTitle">Relevant Coursework</h4>
+              <div className="CourseworkList">
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="100">
+                  <div className="CourseIconBox"><FaCloud className="CourseIcon" /></div>
+                  <h4>Cloud Computing</h4>
+                  <p>Cloud infrastructure, virtualization, and deployment models using AWS and Azure.</p>
+                </div>
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="200">
+                  <div className="CourseIconBox"><FaShieldAlt className="CourseIcon" /></div>
+                  <h4>Cyber Security</h4>
+                  <p>Network security, firewalls, threat analysis, and ethical hacking practices.</p>
+                </div>
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="300">
+                  <div className="CourseIconBox"><FaServer className="CourseIcon" /></div>
+                  <h4>Windows Server Administration</h4>
+                  <p>Active Directory, user permissions, and network roles configuration.</p>
+                </div>
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="400">
+                  <div className="CourseIconBox"><FaNetworkWired className="CourseIcon" /></div>
+                  <h4>Computer Networking</h4>
+                  <p>OSI model, IP addressing, routing, switching, and basic troubleshooting.</p>
+                </div>
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="500">
+                  <div className="CourseIconBox"><FaProjectDiagram className="CourseIcon" /></div>
+                  <h4>Network Designing</h4>
+                  <p>Scalable and secure network infrastructure design using simulation tools.</p>
+                </div>
+                <div className="CourseCard" data-aos="fade-up" data-aos-delay="600">
+                  <div className="CourseIconBox"><FaPython className="CourseIcon" /></div>
+                  <h4>Python Programming</h4>
+                  <p>Functions, data structures, and automation scripts with Python.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
-        <section className="Project" id="Project" data-aos="fade-down">
-          <h1 className="ProjectTitle" data-aos="fade-down">
-            Projects
-          </h1>
-          <Carousel />
+        {/* ── PROJECTS ── */}
+        <section className="Project" id="Project" data-aos="fade-up">
+          <h1 className="ProjectTitle" data-aos="fade-down">Projects</h1>
+          <p className="project-subtitle" data-aos="fade-up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+            Click any card to reveal features &amp; links
+          </p>
+          <div className="projects-flip-grid" data-aos="fade-up" data-aos-delay="100">
+            {projectsData.map((project) => (
+              <FlipCard key={project.id} project={project} />
+            ))}
+          </div>
         </section>
 
+        {/* ── CONTACT ── */}
         <section className="contact-section" id="Contact" data-aos="fade-up">
           <div className="contact-container">
             <h2 className="contact-title">Contact</h2>
             <div className="contact-grid">
               <div className="contact-info" data-aos="fade-right">
                 <div className="info-block">
-                  <div className="icon-circle">
-                    <FaMapMarkerAlt />
-                  </div>
+                  <div className="icon-circle"><FaMapMarkerAlt /></div>
                   <div>
                     <h4>Address</h4>
                     <p>Jaipur, Rajasthan 302026</p>
                   </div>
                 </div>
-
                 <div className="info-block">
-                  <div className="icon-circle">
-                    <FaPhoneAlt />
-                  </div>
+                  <div className="icon-circle"><FaPhoneAlt /></div>
                   <div>
                     <h4>Call Us</h4>
                     <p>+91 95714 04881</p>
                   </div>
                 </div>
-
                 <div className="info-block">
-                  <div className="icon-circle">
-                    <CiMail />
-                  </div>
+                  <div className="icon-circle"><CiMail /></div>
                   <div>
                     <h4>Email Us</h4>
                     <p>developer.vikash.msg@gmail.com</p>
@@ -577,48 +567,25 @@ function Home() {
 
               <form className="contact-form" onSubmit={handleSubmit} data-aos="fade-left">
                 <div className="form-row">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
+                  <input type="text" name="name" placeholder="Your Name"
+                    value={formData.name} onChange={handleChange} required />
+                  <input type="email" name="email" placeholder="Your Email"
+                    value={formData.email} onChange={handleChange} required />
                 </div>
-                <input
-                  type="text"
-                  name="subject"
-                  placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                />
-                <textarea
-                  name="message"
-                  rows="8"
-                  placeholder="Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                ></textarea>
+                <input type="text" name="subject" placeholder="Subject"
+                  value={formData.subject} onChange={handleChange} required />
+                <textarea name="message" rows="7" placeholder="Message"
+                  value={formData.message} onChange={handleChange} required />
                 <button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? "Sending…" : "Send Message"}
                 </button>
               </form>
             </div>
           </div>
         </section>
 
-        <footer className="footer">©2025 Vikash Sharma</footer>
+        <footer className="footer">© 2025 Vikash Sharma — All rights reserved</footer>
+
       </main>
     </>
   );

@@ -483,7 +483,7 @@ function Home() {
               <span className="edu-badge completed">✅ Completed</span>
               <h2 className="Degree">Bachelor of Vocational (B.Voc)</h2>
               <h3 className="University">Bhartiya Skill Development University, Jaipur</h3>
-              <p className="Year">2021 – 2024</p>
+              <p className="Year">2022 – 2025</p>
               <h4 className="CourseworkTitle">Relevant Coursework</h4>
               <div className="CourseworkList">
                 <div className="CourseCard" data-aos="fade-up" data-aos-delay="100">

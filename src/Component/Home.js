@@ -27,8 +27,7 @@ import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { BsSun, BsMoon } from "react-icons/bs";
 
-import APWebsite from "./img/ap website.png";
-import APDashboard from "./img/AP Dashboard.jpeg";
+
 import OnlineExam from "./img/onlineExam.png";
 import MyPort from "./img/portfolio image.png";
 

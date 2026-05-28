@@ -27,7 +27,7 @@ import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { BsSun, BsMoon } from "react-icons/bs";
 
-
+import mydashpic from "./img/mydashpic.png";
 import OnlineExam from "./img/onlineExam.png";
 import MyPort from "./img/portfolio image.png";
 
@@ -40,8 +40,7 @@ import emailjs from "@emailjs/browser";
 const projectsData = [
   {
     id: 1,
-    emoji: "🖥️",
-    image: null,
+    image: mydashpic,
     title: "MyDashboard",
     desc: "All-in-one productivity dashboard with 10+ built-in tools.",
     tag: "React.js",
@@ -65,7 +64,7 @@ const projectsData = [
     features: ["Real-time quiz engine", "Score & timer system", "Result analytics", "Responsive UI"],
   },
    {
-    id: 5,
+    id:3,
     image: MyPort,
     title: "My Portfolio",
     desc: "Personal portfolio showcasing skills, projects & experience.",

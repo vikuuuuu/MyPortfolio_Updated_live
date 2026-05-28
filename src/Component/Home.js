@@ -65,27 +65,7 @@ const projectsData = [
     url: "https://quizmasterr-eta.vercel.app/",
     features: ["Real-time quiz engine", "Score & timer system", "Result analytics", "Responsive UI"],
   },
-  {
-    id: 3,
-    image: APWebsite,
-    title: "ApnaBackup Website",
-    desc: "Data backup & recovery software marketing site.",
-    tag: "React.js",
-    tagClass: "react",
-    url: "https://apnabackup.com",
-    features: ["Product showcase", "Feature highlights", "CTA sections", "Fully responsive"],
-  },
-  {
-    id: 4,
-    image: APDashboard,
-    title: "ApnaBackup Dashboard",
-    desc: "Business backup software with real-time data protection.",
-    tag: "In Progress",
-    tagClass: "inprogress",
-    url: null,
-    features: ["Real-time protection", "Cloud storage", "Secure backup", "Business analytics"],
-  },
-  {
+   {
     id: 5,
     image: MyPort,
     title: "My Portfolio",

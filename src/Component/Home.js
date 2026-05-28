@@ -31,7 +31,7 @@ import APWebsite from "./img/ap website.png";
 import APDashboard from "./img/AP Dashboard.jpeg";
 import OnlineExam from "./img/onlineExam.png";
 import MyPort from "./img/portfolio image.png";
-import Calculator from "./img/Calculator image.png";
+
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -95,16 +95,7 @@ const projectsData = [
     url: "/",
     features: ["Dark / Light mode", "AOS animations", "Typing effect", "EmailJS contact"],
   },
-  {
-    id: 6,
-    image: Calculator,
-    title: "Calculator Project",
-    desc: "Multi-function calculator with standard and age modes.",
-    tag: "HTML/CSS/JS",
-    tagClass: "html",
-    url: "https://calculator-vikuu.vercel.app/",
-    features: ["Standard calculator", "Age calculator", "Interactive UI", "Pure vanilla JS"],
-  },
+ 
 ];
 
 function FlipCard({ project }) {

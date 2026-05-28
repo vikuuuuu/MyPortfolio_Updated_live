@@ -51,7 +51,7 @@ function Menu() {
     <nav className="MenuSidebar" role="navigation" aria-label="Main navigation">
       <div className="nav-inner">
         {/* Brand */}
-        <div className="nav-brand">Vikash.</div>
+        <div className="nav-brand">VS</div>
 
         {/* Links */}
         <div className="nav-links">

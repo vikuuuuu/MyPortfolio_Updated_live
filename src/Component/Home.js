@@ -529,7 +529,7 @@ function Home() {
                   <div className="icon-circle"><CiMail /></div>
                   <div>
                     <h4>Email Us</h4>
-                    <p>developer.vikash.msg@gmail.com</p>
+                    <p>vikashsharmajaipur@zohomail.in</p>
                   </div>
                 </div>
               </div>

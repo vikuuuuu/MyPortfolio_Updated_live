@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from "react";
 import "./Home.css";
-import ProfileImage from "./img/image vector.png";
-import ProfilePic from "./img/ProfileImg.jpg";
+import ProfileImage from "./component/img/image vector.png";
+import ProfilePic from "./component/img/ProfileImg.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faXTwitter,
@@ -27,17 +27,17 @@ import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { BsSun, BsMoon } from "react-icons/bs";
 
-import mydashpic from "./img/mydashpic.png";
-import OnlineExam from "./img/onlineExam.png";
-import MyPort from "./img/portfolio image.png";
+import mydashpic from "./component/img/mydashpic.png";
+import OnlineExam from "./component/img/onlineExam.png";
+import MyPort from "./component/img/portfolio image.png";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 import emailjs from "@emailjs/browser";
 
-import ScrollProgressBar from "./components/ScrollProgressBar";
-import TechMarquee from "./components/TechMarquee";
-import ProjectFilter from "./components/ProjectFilter";
+import ScrollProgressBar from "./component/ScrollProgressBar";
+import TechMarquee from "./component/TechMarquee";
+import ProjectFilter from "./component/ProjectFilter";
 
 // ─── Flip Card Projects ───────────────────────────────────────────────
 // `category` powers the new interactive filter system.

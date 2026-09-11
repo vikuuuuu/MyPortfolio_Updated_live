@@ -1,0 +1,40 @@
+.project-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 2.75rem;
+}
+
+.project-filter-pill {
+  padding: 0.55rem 1.4rem;
+  border-radius: 50px;
+  border: 1px solid var(--border-color);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  letter-spacing: 0.01em;
+}
+
+.project-filter-pill:hover {
+  color: var(--text-primary);
+  border-color: var(--card-hover-border);
+  transform: translateY(-2px);
+}
+
+.project-filter-pill.active {
+  background: var(--accent-gradient);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .project-filter-pill { padding: 0.5rem 1.1rem; font-size: 0.78rem; }
+}

@@ -576,7 +576,7 @@ function Home() {
         {/* ── CONTACT ── */}
         <section className="contact-section" id="Contact" data-aos="fade-up">
           <div className="contact-container">
-            <h2 className="contact-title">Contact</h2>
+            <h2 className="contact-title">Contact me</h2>
             <div className="contact-grid">
               <div className="contact-info" data-aos="fade-right">
                 <div className="info-block">

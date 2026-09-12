@@ -10,8 +10,6 @@ function AppLayout() {
 
   return (
     <>
-      {/* Renders on every route, not just Home, so it stays consistent
-          as more pages get added later */}
       <ScrollProgressBar />
 
       {isHomePage ? <Menu /> : null}

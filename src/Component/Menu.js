@@ -5,13 +5,17 @@ import { CiUser } from "react-icons/ci";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { CiMail } from "react-icons/ci";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
+import { FaBriefcase, FaGraduationCap, FaCertificate } from "react-icons/fa";
 
 const menuItems = [
-  { id: "Home",       icon: <IoHomeOutline />,                   label: "Home"     },
-  { id: "About",      icon: <CiUser />,                          label: "About"    },
-  { id: "Skills",     icon: <IoDocumentTextOutline />,            label: "Skills"   },
-  { id: "Project",    icon: <AiOutlineFundProjectionScreen />,    label: "Projects" },
-  { id: "Contact",    icon: <CiMail />,                          label: "Contact"  },
+  { id: "Home",           icon: <IoHomeOutline />,                label: "Home"     },
+  { id: "About",          icon: <CiUser />,                       label: "About"    },
+  { id: "Skills",         icon: <IoDocumentTextOutline />,        label: "Skills"   },
+  { id: "Experience",     icon: <FaBriefcase />,                  label: "Work"     },
+  { id: "Education",      icon: <FaGraduationCap />,              label: "Education"},
+  { id: "Certifications", icon: <FaCertificate />,                label: "Certs"    },
+  { id: "Project",        icon: <AiOutlineFundProjectionScreen />,label: "Projects" },
+  { id: "Contact",        icon: <CiMail />,                       label: "Contact"  },
 ];
 
 function Menu() {

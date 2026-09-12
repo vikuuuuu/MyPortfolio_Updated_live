@@ -28,7 +28,7 @@ import {
   SiTailwindcss,
   SiVercel,
   SiFirebase,
-  SiVisualstudiocode,
+  SiVisualStudioCode,
 } from "react-icons/si";
 import { CiMail } from "react-icons/ci";
 import { BsSun, BsMoon } from "react-icons/bs";
@@ -332,7 +332,7 @@ function Home() {
         { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
         { name: "GitHub", icon: <FaGithubIcon />, color: "#888888" },
         { name: "Figma", icon: <FaFigma />, color: "#F24E1E" },
-        { name: "VS Code", icon: <SiVisualstudiocode />, color: "#007ACC" },
+        { name: "VS Code", icon: <SiVisualStudioCode />, color: "#007ACC" },
       ],
     },
   ];

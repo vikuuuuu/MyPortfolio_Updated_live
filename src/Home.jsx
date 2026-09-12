@@ -12,18 +12,24 @@ import {
 import { MdOutlineFileDownload } from "react-icons/md";
 import {
   FaCloud,
-  FaShieldAlt,
-  FaServer,
-  FaNetworkWired,
-  FaProjectDiagram,
-  FaPython,
   FaHtml5,
   FaCss3Alt,
   FaJs,
   FaReact,
+  FaAws,
+  FaGitAlt,
+  FaGithub as FaGithubIcon,
+  FaFigma,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
 } from "react-icons/fa";
-import { SiNextdotjs, SiTailwindcss } from "react-icons/si";
-import { FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTailwindcss,
+  SiVercel,
+  SiFirebase,
+  SiVisualstudiocode,
+} from "react-icons/si";
 import { CiMail } from "react-icons/ci";
 import { BsSun, BsMoon } from "react-icons/bs";
 
@@ -35,12 +41,13 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import emailjs from "@emailjs/browser";
 
-import ScrollProgressBar from "./Component/ScrollProgressBar";
 import TechMarquee from "./Component/TechMarquee";
 import ProjectFilter from "./Component/ProjectFilter";
+import SectionHeader from "./Component/SectionHeader";
+import Timeline from "./Component/Timeline";
+import Certifications from "./Component/Certifications";
 
 // ─── Flip Card Projects ───────────────────────────────────────────────
-// `category` powers the new interactive filter system.
 const projectsData = [
   {
     id: 1,
@@ -82,6 +89,17 @@ const projectsData = [
   },
 ];
 
+// ── FlipCard ──────────────────────────────────────────────────────────
+// BUG FIX: this card used to carry its own `data-aos="zoom-in"` attribute.
+// AOS applies its own `transform`/`opacity` styles directly to whatever
+// element `data-aos` is on. Because `.flip-card` is also the element that
+// establishes the 3D flip context (`perspective`) for its child
+// `.flip-card-inner` (which uses `transform-style: preserve-3d` +
+// `rotateY`), having AOS *also* write a transform onto `.flip-card`
+// flattened that 3D context in some browsers — the card would go blank
+// instead of flipping. Fix: AOS now lives one level up, on the grid
+// wrapper only (`.projects-flip-grid`), so `.flip-card` itself never gets
+// a competing transform.
 function FlipCard({ project }) {
   const [flipped, setFlipped] = useState(false);
 
@@ -98,8 +116,6 @@ function FlipCard({ project }) {
       tabIndex={0}
       onKeyDown={(e) => e.key === "Enter" && setFlipped((f) => !f)}
       aria-label={`${project.title} — click to flip`}
-      data-aos="zoom-in"
-      data-aos-duration="500"
     >
       <div className="flip-card-inner">
         {/* FRONT */}
@@ -269,22 +285,92 @@ function Home() {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const technicalSkills = [
-    { name: "HTML",          icon: <FaHtml5 />,       color: "#E34F26" },
-    { name: "CSS",           icon: <FaCss3Alt />,      color: "#1572B6" },
-    { name: "JavaScript",    icon: <FaJs />,           color: "#F7DF1E" },
-    { name: "React.js",      icon: <FaReact />,        color: "#61DAFB" },
-    { name: "Next.js",       icon: <SiNextdotjs />,    color: "#888888" },
-    { name: "Tailwind CSS",  icon: <SiTailwindcss />,  color: "#06B6D4" },
-    { name: "Cloud Computing",icon: <FaCloud />,       color: "#4285F4" },
-  ];
-
-  // ── Hero stat pills (mirrors the reference site's stat row) ──
+  // ── Hero stat pills ──
   const heroStats = [
     { label: "Projects Shipped", value: "10+" },
     { label: "Companies Worked With", value: "3" },
     { label: "Core Technologies", value: "7+" },
     { label: "Currently", value: "MCA" },
+  ];
+
+  // ── About: quick facts ──
+  const aboutFacts = [
+    { label: "Location", value: "Jaipur, Rajasthan" },
+    { label: "Focus", value: "Frontend & Cloud Deployment" },
+    { label: "Education", value: "Pursuing MCA" },
+    { label: "Availability", value: "Open to freelance" },
+  ];
+
+  // ── Skills: categorized (replaces the old flat grid) ──
+  const skillCategories = [
+    {
+      title: "Web Development",
+      icon: <FaReact />,
+      skills: [
+        { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
+        { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
+        { name: "JavaScript", icon: <FaJs />, color: "#F7DF1E" },
+        { name: "React.js", icon: <FaReact />, color: "#61DAFB" },
+        { name: "Next.js", icon: <SiNextdotjs />, color: "#888888" },
+        { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4" },
+      ],
+    },
+    {
+      title: "Cloud & Deployment",
+      icon: <FaCloud />,
+      skills: [
+        { name: "Cloud Computing", icon: <FaCloud />, color: "#4285F4" },
+        { name: "AWS", icon: <FaAws />, color: "#FF9900" },
+        { name: "Vercel", icon: <SiVercel />, color: "#999999" },
+        { name: "Firebase", icon: <SiFirebase />, color: "#FFCA28" },
+      ],
+    },
+    {
+      title: "Tools & Workflow",
+      icon: <FaGitAlt />,
+      skills: [
+        { name: "Git", icon: <FaGitAlt />, color: "#F05032" },
+        { name: "GitHub", icon: <FaGithubIcon />, color: "#888888" },
+        { name: "Figma", icon: <FaFigma />, color: "#F24E1E" },
+        { name: "VS Code", icon: <SiVisualstudiocode />, color: "#007ACC" },
+      ],
+    },
+  ];
+
+  // ── Experience & Education: fed into the shared Timeline component ──
+  const experienceItems = [
+    {
+      title: "Web Developer",
+      subtitle: "NullCyberX",
+      meta: "Jan 2025 – Aug 2025",
+      badge: "Most Recent",
+    },
+    {
+      title: "Web Developer",
+      subtitle: "3Handshake Innovation Pvt. Ltd.",
+      meta: "Jan 2024 – Aug 2024",
+    },
+    {
+      title: "Digital Marketing",
+      subtitle: "The Raptor Marketing",
+      meta: "Jan 2023 – June 2023",
+    },
+  ];
+
+  const educationItems = [
+    {
+      title: "Master of Computer Applications (MCA)",
+      subtitle: "Rajasthan Technical University, Kota",
+      meta: "2025 – 2027",
+      badge: "🎓 Currently Pursuing",
+    },
+    {
+      title: "Bachelor of Vocational (B.Voc)",
+      subtitle: "Bhartiya Skill Development University, Jaipur",
+      meta: "2022 – 2025",
+      badge: "✅ Completed",
+      badgeClass: "completed",
+    },
   ];
 
   // ── Project filtering ──
@@ -303,9 +389,6 @@ function Home() {
 
   return (
     <>
-      {/* Animated scroll progress bar */}
-      <ScrollProgressBar />
-
       {/* Theme toggle */}
       <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
         {theme === "light" ? <BsMoon /> : <BsSun />}
@@ -320,7 +403,7 @@ function Home() {
 
       <main className="main">
 
-        {/* ── HOME / HERO ── */}
+        {/* ── 01 · HOME / HERO ── */}
         <section className="Home" id="Home">
           <div className="hero-glow" aria-hidden="true" />
 
@@ -386,20 +469,36 @@ function Home() {
         {/* ── LIVE TECH STACK MARQUEE ── */}
         <TechMarquee />
 
-        {/* ── ABOUT ── */}
+        {/* ── 02 · ABOUT ── */}
         <section className="About" id="About" data-aos="fade-up">
+          <SectionHeader index="02" tag="Get to know me" title="About Me" />
           <div className="AboutContainer-Box">
             <div className="Aboutbox1" data-aos="zoom-in">
               <img src={ProfilePic} alt="Vikash Sharma" />
+              <span className="about-badge">Open to freelance</span>
             </div>
             <div className="Aboutbox2" data-aos="fade-left">
-              <h1 className="AboutTitle">About Me</h1>
               <p className="AboutDetails">
-                I'm a frontend web developer and graphic designer who blends
-                code and creativity to build engaging, user-friendly websites. I
-                use tools like React.js and Next.js to turn ideas into smooth,
-                eye-catching digital experiences.
+                I'm a frontend developer and graphic designer based in Jaipur,
+                blending clean engineering with a designer's eye for detail.
+                My day-to-day toolkit centers on React and Next.js, and I
+                regularly ship and deploy production apps using Firebase,
+                Vercel, and AWS. Alongside freelance and agency work, I'm
+                currently pursuing my Master's in Computer Applications —
+                deepening my foundations in cloud computing, security, and
+                software engineering while continuing to build real,
+                production-ready web apps.
               </p>
+
+              <div className="about-facts-grid">
+                {aboutFacts.map((fact) => (
+                  <div className="about-fact" key={fact.label}>
+                    <span className="about-fact-label">{fact.label}</span>
+                    <span className="about-fact-value">{fact.value}</span>
+                  </div>
+                ))}
+              </div>
+
               <button className="Resumebtn" onClick={handleDownload}>
                 Resume <MdOutlineFileDownload className="downloadbtn" />
               </button>
@@ -407,158 +506,68 @@ function Home() {
           </div>
         </section>
 
-        {/* ── SKILLS ── */}
+        {/* ── 03 · SKILLS (categorized) ── */}
         <section className="Skills" id="Skills" data-aos="fade-up">
-          <h1 className="SkillsTitle" data-aos="fade-down">Technical Skills</h1>
-          <div className="SkillsContainer">
-            {technicalSkills.map((skill, i) => (
+          <SectionHeader index="03" tag="What I work with" title="Technical Skills" />
+          <div className="skills-category-grid">
+            {skillCategories.map((cat, ci) => (
               <div
-                className="SkillIconCard"
-                data-aos="flip-up"
-                data-aos-delay={i * 80}
-                key={skill.name}
+                className="skills-category-card"
+                key={cat.title}
+                data-aos="fade-up"
+                data-aos-delay={ci * 120}
               >
-                <div className="SkillIconWrapper" style={{ "--skill-color": skill.color }}>
-                  {skill.icon}
+                <div className="skills-category-header">
+                  <span className="skills-category-icon">{cat.icon}</span>
+                  <h3>{cat.title}</h3>
                 </div>
-                <h3 className="SkillName">{skill.name}</h3>
+                <div className="skills-chip-grid">
+                  {cat.skills.map((skill) => (
+                    <div
+                      className="skill-chip"
+                      key={skill.name}
+                      style={{ "--skill-color": skill.color }}
+                    >
+                      <span className="skill-chip-icon">{skill.icon}</span>
+                      <span className="skill-chip-name">{skill.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── EXPERIENCE ── */}
+        {/* ── 04 · EXPERIENCE (timeline) ── */}
         <section className="Experience" id="Experience" data-aos="fade-up">
-          <h1 className="ExperienceTitle" data-aos="fade-down">Experience</h1>
-          <div className="ExperienceContainer">
-            <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="100">
-              <div className="experience-number">01</div>
-              <h3 className="ExperienceRole">Digital Marketing</h3>
-              <p className="ExperienceCompany">The Raptor Marketing</p>
-              <p className="ExperienceDuration">Jan 2023 – June 2023</p>
-            </article>
-            <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="200">
-              <div className="experience-number">02</div>
-              <h3 className="ExperienceRole">Web Developer</h3>
-              <p className="ExperienceCompany">3Handshake Innovation Pvt. Ltd.</p>
-              <p className="ExperienceDuration">Jan 2024 – Aug 2024</p>
-            </article>
-            <article className="ExperienceCard" data-aos="fade-up" data-aos-delay="300">
-              <div className="experience-number">03</div>
-              <h3 className="ExperienceRole">Web Developer</h3>
-              <p className="ExperienceCompany">NullCyberX</p>
-              <p className="ExperienceDuration">Jan 2025 – Aug 2025</p>
-            </article>
-          </div>
+          <SectionHeader index="04" tag="Where I've worked" title="Experience" />
+          <Timeline items={experienceItems} />
         </section>
 
-        {/* ── EDUCATION ── */}
+        {/* ── 05 · EDUCATION (timeline) ── */}
         <section className="Education" id="Education" data-aos="fade-up">
-          <h1 className="EducationTitle" data-aos="fade-down">Education</h1>
-          <div className="EducationContainer">
-
-            {/* MCA */}
-            <div className="EducationCard" data-aos="fade-up" data-aos-delay="100">
-              <span className="edu-badge pursuing">🎓 Currently Pursuing</span>
-              <h2 className="Degree">Master of Computer Applications (MCA)</h2>
-              <h3 className="University">Rajasthan Technical University, Kota</h3>
-              <p className="Year">2025 – 2027</p>
-              <h4 className="CourseworkTitle">Key Subjects</h4>
-              <div className="CourseworkList">
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="100">
-                  <div className="CourseIconBox"><FaReact className="CourseIcon" /></div>
-                  <h4>Advanced Java</h4>
-                  <p>Object-oriented programming, multithreading, collections framework and enterprise-level application development.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="150">
-                  <div className="CourseIconBox"><FaServer className="CourseIcon" /></div>
-                  <h4>DBMS &amp; SQL</h4>
-                  <p>Relational database design, normalization, query optimization and transaction management.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="200">
-                  <div className="CourseIconBox"><FaProjectDiagram className="CourseIcon" /></div>
-                  <h4>Data Structures &amp; Algorithms</h4>
-                  <p>Trees, graphs, sorting algorithms, dynamic programming and problem-solving techniques.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="250">
-                  <div className="CourseIconBox"><FaNetworkWired className="CourseIcon" /></div>
-                  <h4>Computer Networks</h4>
-                  <p>OSI model, TCP/IP, routing protocols, network security and wireless communication.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="300">
-                  <div className="CourseIconBox"><FaShieldAlt className="CourseIcon" /></div>
-                  <h4>Information Security</h4>
-                  <p>Cryptography, ethical hacking principles, threat analysis and secure system design.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="350">
-                  <div className="CourseIconBox"><FaCloud className="CourseIcon" /></div>
-                  <h4>Software Engineering</h4>
-                  <p>SDLC models, Agile methodology, design patterns, testing and project management.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="400">
-                  <div className="CourseIconBox"><FaPython className="CourseIcon" /></div>
-                  <h4>Machine Learning</h4>
-                  <p>Supervised/unsupervised learning, regression, classification and neural network fundamentals.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="450">
-                  <div className="CourseIconBox"><FaCloud className="CourseIcon" /></div>
-                  <h4>Cloud Computing</h4>
-                  <p>Cloud architectures, AWS services, virtualization, containers and serverless deployment.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* B.Voc */}
-            <div className="EducationCard" data-aos="fade-up" data-aos-delay="200">
-              <span className="edu-badge completed">✅ Completed</span>
-              <h2 className="Degree">Bachelor of Vocational (B.Voc)</h2>
-              <h3 className="University">Bhartiya Skill Development University, Jaipur</h3>
-              <p className="Year">2022 – 2025</p>
-              <h4 className="CourseworkTitle">Relevant Coursework</h4>
-              <div className="CourseworkList">
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="100">
-                  <div className="CourseIconBox"><FaCloud className="CourseIcon" /></div>
-                  <h4>Cloud Computing</h4>
-                  <p>Cloud infrastructure, virtualization, and deployment models using AWS and Azure.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="200">
-                  <div className="CourseIconBox"><FaShieldAlt className="CourseIcon" /></div>
-                  <h4>Cyber Security</h4>
-                  <p>Network security, firewalls, threat analysis, and ethical hacking practices.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="300">
-                  <div className="CourseIconBox"><FaServer className="CourseIcon" /></div>
-                  <h4>Windows Server Administration</h4>
-                  <p>Active Directory, user permissions, and network roles configuration.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="400">
-                  <div className="CourseIconBox"><FaNetworkWired className="CourseIcon" /></div>
-                  <h4>Computer Networking</h4>
-                  <p>OSI model, IP addressing, routing, switching, and basic troubleshooting.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="500">
-                  <div className="CourseIconBox"><FaProjectDiagram className="CourseIcon" /></div>
-                  <h4>Network Designing</h4>
-                  <p>Scalable and secure network infrastructure design using simulation tools.</p>
-                </div>
-                <div className="CourseCard" data-aos="fade-up" data-aos-delay="600">
-                  <div className="CourseIconBox"><FaPython className="CourseIcon" /></div>
-                  <h4>Python Programming</h4>
-                  <p>Functions, data structures, and automation scripts with Python.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
+          <SectionHeader index="05" tag="Academic background" title="Education" />
+          <Timeline items={educationItems} />
         </section>
 
-        {/* ── PROJECTS ── */}
+        {/* ── 06 · CERTIFICATIONS ── */}
+        <section className="Certifications" id="Certifications" data-aos="fade-up">
+          <SectionHeader
+            index="06"
+            tag="Recognition"
+            title="Certifications & Achievements"
+          />
+          <Certifications />
+        </section>
+
+        {/* ── 07 · PROJECTS ── */}
         <section className="Project" id="Project" data-aos="fade-up">
-          <h1 className="ProjectTitle" data-aos="fade-down">Projects</h1>
-          <p className="project-subtitle" data-aos="fade-up">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
-            Click any card to reveal features &amp; links
-          </p>
+          <SectionHeader
+            index="07"
+            tag="Selected work"
+            title="Projects"
+            subtitle="Click any card to reveal features & links"
+          />
 
           <ProjectFilter
             categories={categories}
@@ -566,6 +575,9 @@ function Home() {
             onChange={setActiveCategory}
           />
 
+          {/* AOS lives here, on the grid wrapper — NOT on individual
+              .flip-card elements — so it never fights the 3D flip
+              transform (see the FlipCard bug-fix note above). */}
           <div className="projects-flip-grid" data-aos="fade-up" data-aos-delay="100">
             {filteredProjects.map((project) => (
               <FlipCard key={project.id} project={project} />
@@ -573,10 +585,10 @@ function Home() {
           </div>
         </section>
 
-        {/* ── CONTACT ── */}
+        {/* ── 08 · CONTACT ── */}
         <section className="contact-section" id="Contact" data-aos="fade-up">
           <div className="contact-container">
-            <h2 className="contact-title">Contact me</h2>
+            <SectionHeader index="08" tag="Get in touch" title="Contact" />
             <div className="contact-grid">
               <div className="contact-info" data-aos="fade-right">
                 <div className="info-block">

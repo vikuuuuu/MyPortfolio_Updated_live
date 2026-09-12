@@ -115,20 +115,6 @@ body {
   padding: 2rem 2.5rem;
 }
 
-/* ===================== SECTION TITLE ===================== */
-.section-heading {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 3.5rem;
-  letter-spacing: -0.02em;
-}
-
 /* ===================== HOME / HERO SECTION ===================== */
 .Home {
   position: relative;
@@ -141,7 +127,6 @@ body {
   overflow: hidden;
 }
 
-/* Soft radial glow anchored behind the hero copy — adds depth without noise */
 .hero-glow {
   position: absolute;
   top: 50%;
@@ -163,8 +148,6 @@ body {
 
 .ProfileContainer { position: relative; z-index: 1; flex: 1; max-width: 580px; }
 
-/* Shared entrance animation for every staggered hero element.
-   Each element sets its own animation-delay inline for a cascading reveal. */
 .hero-eyebrow,
 .ProfileName1,
 .ProfileName2,
@@ -181,7 +164,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Eyebrow — numbered index tag, echoes the "01 / 02" section markers */
 .hero-eyebrow {
   display: flex;
   align-items: center;
@@ -286,7 +268,6 @@ body {
 }
 .SecondaryAction:hover { background: var(--accent-primary); color: white; transform: translateY(-3px); }
 
-/* Hero stat pills — quick-glance credibility row */
 .hero-stats {
   display: flex;
   flex-wrap: wrap;
@@ -358,7 +339,6 @@ body {
   align-items: center;
 }
 
-/* Decorative rotating ring behind the profile image */
 .hero-img-ring {
   position: absolute;
   width: 105%;
@@ -390,7 +370,7 @@ body {
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* ===================== ABOUT SECTION ===================== */
+/* ===================== ABOUT SECTION (redesigned) ===================== */
 .About { padding: 6rem 0; }
 
 .AboutContainer-Box {
@@ -405,7 +385,7 @@ body {
   box-shadow: var(--shadow-lg);
 }
 
-.Aboutbox1 { flex: 1; }
+.Aboutbox1 { position: relative; flex: 1; display: flex; justify-content: center; }
 .Aboutbox1 img {
   width: 100%;
   max-width: 380px;
@@ -417,25 +397,61 @@ body {
 }
 .Aboutbox1 img:hover { transform: scale(1.04) rotate(1deg); }
 
-.Aboutbox2 { flex: 1.2; }
-
-.AboutTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 700;
+/* Floating availability badge over the photo */
+.about-badge {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.55rem 1.4rem;
+  border-radius: 50px;
   background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1.25rem;
-  letter-spacing: -0.02em;
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
 }
 
+.Aboutbox2 { flex: 1.2; }
+
 .AboutDetails {
-  font-size: 1.05rem;
+  font-size: 1.03rem;
   line-height: 1.85;
   color: var(--text-secondary);
   margin-bottom: 2rem;
+}
+
+/* Quick-facts row */
+.about-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+.about-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+.about-fact:hover { border-color: var(--card-hover-border); transform: translateY(-3px); }
+.about-fact-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+.about-fact-value {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .Resumebtn {
@@ -457,261 +473,102 @@ body {
 .Resumebtn:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .downloadbtn { font-size: 1.2rem; }
 
-/* ===================== SKILLS SECTION ===================== */
+/* ===================== SKILLS SECTION (categorized cards) ===================== */
 .Skills { padding: 6rem 0; }
 
-.SkillsTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 3.5rem;
-  letter-spacing: -0.02em;
-}
-
-.SkillsContainer {
+.skills-category-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1.5rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.SkillIconCard {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 1.75rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.85rem;
-  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-  cursor: default;
-}
-.SkillIconCard::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent-gradient);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-  border-radius: 3px 3px 0 0;
-}
-.SkillIconCard:hover { transform: translateY(-10px) scale(1.03); box-shadow: var(--shadow-lg); border-color: var(--card-hover-border); }
-.SkillIconCard:hover::before { transform: scaleX(1); }
-
-.SkillIconWrapper {
-  width: 72px; height: 72px;
-  border-radius: 18px;
-  background: var(--bg-secondary);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.6rem;
-  color: var(--skill-color);
-  transition: all 0.4s ease;
-  box-shadow: var(--shadow-sm);
-}
-.SkillIconCard:hover .SkillIconWrapper {
-  transform: scale(1.1) rotateY(360deg);
-  box-shadow: 0 0 28px var(--skill-color);
-}
-.SkillName { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); text-align: center; }
-
-/* ===================== EXPERIENCE SECTION ===================== */
-.Experience { padding: 6rem 0; }
-
-.ExperienceTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 3.5rem;
-  letter-spacing: -0.02em;
-}
-
-.ExperienceContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.75rem;
   max-width: 1100px;
   margin: 0 auto;
 }
 
-.ExperienceCard {
-  background: var(--bg-card);
+.skills-category-card {
+  background: var(--glass-bg);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 2.25rem;
-  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  padding: 2rem;
   box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-.experience-number {
-  position: absolute;
-  top: -15px; right: 18px;
-  font-family: 'Syne', sans-serif;
-  font-size: 5.5rem;
-  font-weight: 800;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  opacity: 0.08;
-  pointer-events: none;
-  line-height: 1;
-}
-.ExperienceCard:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-lg);
+.skills-category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
   border-color: var(--card-hover-border);
 }
-.ExperienceRole { font-family: 'Syne', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
-.ExperienceCompany { font-size: 1rem; color: var(--accent-primary); margin-bottom: 0.4rem; font-weight: 500; }
-.ExperienceDuration { font-size: 0.9rem; color: var(--text-secondary); }
 
-/* ===================== EDUCATION SECTION ===================== */
-.Education { padding: 6rem 0; }
-
-.EducationTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 3.5rem;
-  letter-spacing: -0.02em;
-}
-
-.EducationContainer {
+.skills-category-header {
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.EducationCard {
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px);
-  border: 1px solid var(--glass-border);
-  border-radius: 24px;
-  padding: 3rem;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.EducationCard::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: var(--accent-gradient);
-  border-radius: 4px 0 0 4px;
-}
-.EducationCard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-
-.edu-badge {
-  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 14px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
 }
-.edu-badge.pursuing {
-  background: rgba(99,102,241,0.12);
-  color: var(--accent-primary);
-  border: 1px solid rgba(99,102,241,0.25);
-}
-.edu-badge.completed {
-  background: rgba(34,197,94,0.1);
-  color: #16a34a;
-  border: 1px solid rgba(34,197,94,0.2);
-}
-:root[data-theme="dark"] .edu-badge.completed { color: #4ade80; }
-
-.Degree { font-family: 'Syne', sans-serif; font-size: clamp(1.3rem, 2.5vw, 1.9rem); font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; letter-spacing: -0.01em; }
-.University { font-size: 1.05rem; color: var(--accent-primary); margin-bottom: 0.35rem; font-weight: 500; }
-.Year { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 2rem; }
-
-.CourseworkTitle { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1.5rem; }
-
-.CourseworkList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
-}
-
-.CourseCard {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-.CourseCard:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--card-hover-border); }
-
-.CourseIconBox {
-  width: 52px; height: 52px;
+.skills-category-icon {
+  width: 42px;
+  height: 42px;
   border-radius: 12px;
   background: var(--accent-gradient);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 0.9rem;
-}
-.CourseIcon { font-size: 1.7rem; color: white; }
-.CourseCard h4 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.4rem; }
-.CourseCard p { font-size: 0.88rem; line-height: 1.6; color: var(--text-secondary); }
-
-/* ===================== PROJECT FLIP CARDS ===================== */
-.Project { padding: 6rem 0; }
-
-.ProjectTitle {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
-}
-
-.project-subtitle {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
+  color: white;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  flex-shrink: 0;
 }
-.project-subtitle svg { width: 14px; height: 14px; opacity: 0.7; }
+.skills-category-header h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.skills-chip-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.skill-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+.skill-chip:hover {
+  border-color: var(--card-hover-border);
+  transform: translateX(4px);
+}
+.skill-chip-icon {
+  font-size: 1.15rem;
+  color: var(--skill-color);
+  display: flex;
+  flex-shrink: 0;
+}
+.skill-chip-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ===================== EXPERIENCE & EDUCATION ===================== */
+.Experience, .Education { padding: 6rem 0; }
+/* Timeline layout & card visuals live in Timeline.css */
+
+/* ===================== CERTIFICATIONS ===================== */
+.Certifications { padding: 6rem 0; }
+/* Card visuals live in Certifications.css */
+
+/* ===================== PROJECT FLIP CARDS ===================== */
+.Project { padding: 6rem 0; }
 
 .projects-flip-grid {
   display: grid;
@@ -722,7 +579,8 @@ body {
   perspective: 1200px;
 }
 
-/* Flip card wrapper */
+/* Flip card wrapper — intentionally carries NO data-aos / extra transform
+   of its own; see the bug-fix note in Home.jsx for why. */
 .flip-card {
   height: 360px;
   cursor: pointer;
@@ -751,8 +609,6 @@ body {
   overflow: hidden;
 }
 
-/* FRONT — glassmorphism panel: translucent + blurred so background shapes
-   subtly show through, with a soft inner highlight border */
 .flip-card-front {
   background: var(--glass-bg);
   backdrop-filter: blur(18px);
@@ -820,8 +676,6 @@ body {
 .flip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-primary); animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
 
-/* BACK — kept as a vivid gradient panel but with a frosted overlay for
-   the same glass texture as the front */
 .flip-card-back {
   background: linear-gradient(145deg, #5a57f5, #8b5cf6, #6d28d9);
   backdrop-filter: blur(18px);
@@ -846,7 +700,6 @@ body {
 }
 .back-features-list li::before { content: ""; width: 5px; height: 5px; background: rgba(255,255,255,0.7); border-radius: 50%; flex-shrink: 0; }
 
-/* Dashboard 2-col features */
 .dash-features-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -887,19 +740,6 @@ body {
 
 /* ===================== CONTACT SECTION ===================== */
 .contact-section { padding: 6rem 0; }
-
-.contact-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 3.5rem;
-  letter-spacing: -0.02em;
-}
 
 .contact-grid {
   display: grid;
@@ -1023,14 +863,16 @@ body {
   .AboutContainer-Box {
     flex-direction: column;
     text-align: center;
-    gap: 2.5rem;
+    gap: 3rem;
     padding: 2.5rem 2rem;
   }
   .Aboutbox1 img { max-width: 280px; margin: 0 auto; }
+  .about-facts-grid { text-align: left; }
+
+  .skills-category-grid { grid-template-columns: repeat(2, 1fr); }
 
   .projects-flip-grid { grid-template-columns: repeat(2, 1fr); }
 
-  /* Contact — stack vertically */
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1048,19 +890,12 @@ body {
   .hero-stats { gap: 0.6rem; }
   .hero-stat-pill { min-width: 92px; padding: 0.6rem 0.9rem; }
 
-  .AboutContainer-Box { padding: 1.75rem 1.25rem; border-radius: 18px; }
+  .AboutContainer-Box { padding: 2rem 1.25rem 1.75rem; border-radius: 18px; }
+  .about-badge { font-size: 0.7rem; padding: 0.45rem 1.1rem; }
+  .about-facts-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
-  .SkillsContainer {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 0.85rem;
-  }
-  .SkillIconWrapper { width: 56px; height: 56px; font-size: 1.9rem; border-radius: 14px; }
-  .SkillIconCard { padding: 1.25rem 0.75rem; }
-
-  .ExperienceContainer { grid-template-columns: 1fr; }
-
-  .EducationCard { padding: 1.75rem 1.25rem; }
-  .CourseworkList { grid-template-columns: 1fr; }
+  .skills-category-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .skills-category-card { padding: 1.5rem; }
 
   .projects-flip-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1069,7 +904,6 @@ body {
   .flip-card { height: 300px; }
   .card-img-area { height: 140px; }
 
-  /* Contact full fix */
   .contact-section { padding: 4rem 0; }
   .contact-grid {
     grid-template-columns: 1fr;
@@ -1117,9 +951,8 @@ body {
   .PrimaryAction, .SecondaryAction { width: 100%; text-align: center; display: block; }
   .hero-stats { justify-content: center; }
 
-  .AboutContainer-Box { padding: 1.25rem 1rem; }
-
-  .EducationCard { padding: 1.25rem 1rem; }
+  .AboutContainer-Box { padding: 1.75rem 1rem 1.25rem; }
+  .about-facts-grid { grid-template-columns: 1fr; }
 
   /* Single column flip cards on very small screens */
   .projects-flip-grid { grid-template-columns: 1fr; }
@@ -1140,7 +973,6 @@ body {
   .flip-card.flipped .flip-card-front { border-radius: 20px 20px 0 0; }
   .card-img-area { height: 190px; }
 
-  /* Contact */
   .contact-grid { padding: 1.25rem 1rem; gap: 1.5rem; }
   .icon-circle { width: 38px; height: 38px; font-size: 1rem; flex-shrink: 0; }
   .info-block h4 { font-size: 0.75rem; }
